@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+      <title>查找附近门店</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,
+    minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="/addons/iw_move/template/mobile/css/reset200802.css"/>
+   <script type="text/javascript" src="https://3gimg.qq.com/lightmap/components/geolocation/geolocation.min.js"></script>
+  
+    <style>
+     * {margin: 0; padding: 0; border: 0;}
+        body {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        #geoPage, #markPage {
+            position: relative;
+        }
+        body{background:#ECECEC;}
+        .wrap{margin-top:10%;}
+         .tijiao{width:90%;background:#51B8D9;border-radius:8px;border:none;display:block;margin:10% auto;padding:10px;color:#fff;font-size:16px;}
+         .wrap .logo{display:flex; justify-content: space-around;align-items:center;margin:20% 0;}
+        .md{background:#fff;width:90%;margin:auto;border-radius:6px;margin-top:3%;}
+        .md .name{font-size: 18px;padding:20px 30px;}
+        .md .address{padding:0px 30px;}
+        .md .address img{width:7%;}
+        .mdpic ul{display:flex; justify-content: space-around;align-indexs:center;padding:20px;}
+        .mdpic ul li{width:25%;overflow: hidden;float:left;}
+        .mdpic ul li img{width:100%;}
+        .butt-div{
+           background-color: #ECECEC;
+        	/*width: 200px;*/
+        	margin:0 auto;
+            margin-top: 30px;
+        	margin-bottom: 30px;
+        	display: flex;
+        	justify-content:center;
+        }
+
+        .butt{
+              background-color: #ECECEC;
+        	width: 200px;
+        	height: 200px;
+        	/*border-radius: 50%;*/
+        	margin:0 auto;
+        	/*border: 1px solid red;*/
+        	text-align: center;
+        	padding: 40px;
+            color:#51B8D9;
+            font-size:20px;
+
+        }
+       .butt img{
+         background-color: #ECECEC;
+       	width: 100%;
+       	height: 100%;
+
+       }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="logo"><img src="/addons/iw_move/template/mobile/images/logo.png" alt=""></div>
+    </div>
+    <!--  通过 iframe 嵌入前端定位组件，此处没有隐藏定位组件，使用了定位组件的在定位中视觉特效  -->
+    <iframe id="geoPage" width="100%" height="30%" frameborder=0 scrolling="no"
+    src="https://apis.map.qq.com/tools/geolocation?key=4WQBZ-BNMRU-WQXVR-4Q3LV-UXG5J-Z4B6O&referer=myapp&effect=zoom"></iframe>
+     
+    <script type="text/JavaScript">
+        var loc;
+        var isMapInit = false;
+        //监听定位组件的message事件
+        window.addEventListener('message', function(event) { 
+            loc = event.data; // 接收位置信息
+            // console.log('location', loc);
+       
+            if(loc  && loc.module == 'geolocation') { //定位成功,防止其他应用也会向该页面post信息，需判断module是否为'geolocation'
+                var markUrl = 'https://apis.map.qq.com/tools/poimarker' +
+                '?marker=coord:' + loc.lat + ',' + loc.lng + 
+                ';title:我的位置;addr:' + (loc.addr || loc.city) + 
+                '&key=4WQBZ-BNMRU-WQXVR-4Q3LV-UXG5J-Z4B6O&referer=myapp';
+                //给位置展示组件赋值
+                // alert(markUrl);
+                // document.getElementById('markPage').src = markUrl;
+                document.getElementById('lat').value = loc.lat;
+                document.getElementById('lng').value = loc.lng;
+         
+
+            } else { //定位组件在定位失败后，也会触发message, event.data为null
+
+                // alert('定位失败'); 
+
+            }
+ 
+        }, false);
+        //为防止定位组件在message事件监听前已经触发定位成功事件，在此处显示请求一次位置信息
+        document.getElementById("geoPage").contentWindow.postMessage('getLocation', '*');
+         
+        //设置6s超时，防止定位组件长时间获取位置信息未响应
+        setTimeout(function() {
+            if(!loc) {
+                //主动与前端定位组件通信（可选），获取粗糙的IP定位结果
+            document.getElementById("geoPage")
+                .contentWindow.postMessage('getLocation.robust', '*');
+            }
+        }, 6000); //6s为推荐值，业务调用方可根据自己的需求设置改时间，不建议太短
+    </script> 
+    
+    <!-- 接收到位置信息后 通过 iframe 嵌入位置标注组件 -->
+  <!--   <iframe id="markPage" width="100%" height="70%" frameborder=0 scrolling="no" src=""></iframe>  -->
+
+  <form action="{php echo $this->createMobileUrl('color',array('op'=>'ja'))}" method="post">
+        <input type="hidden" name="lat" id="lat" value="">
+        <input type="hidden" name="lng" id="lng" value="">
+       	<div class="butt-div">
+       		 <button class="butt" id="but" onclick="dian()">
+           	<img src="/addons/iw_move/template/mobile/images/pop.png">
+           	<span>查找附近门店</span>
+           </button>
+
+       	</div>
+   
+    </form>
+  
+    
+</body>
+</html>

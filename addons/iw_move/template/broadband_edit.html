@@ -1,0 +1,75 @@
+{template 'common/header'}
+
+<ul class="nav nav-tabs">
+      <li {if $operation == 'list'} class="active" {/if}><a href="{php echo  $this->createWebUrl('broadband', array('op'=>'list'));}">宽带信息列表</a></li>
+       <li {if $operation == 'add'} class="active" {/if}><a href="{php echo  $this->createWebUrl('broadband', array('op'=>'add'));}">宽带信息添加</a></li>
+        <li {if $operation == 'edit'} class="active" {/if}><a>宽带信息信息修改</a></li>
+          <li {if $operation == 'photo_list'} class="active" {/if}><a href="{php echo  $this->createWebUrl('broadband', array('op'=>'photo_list'));}">宽带宣传图列表</a></li>
+        {if $admin['move'] == 1}
+       <li {if $operation == 'photo_add'} class="active" {/if}><a href="{php echo  $this->createWebUrl('broadband', array('op'=>'photo_add'));}">宽带宣传图添加</a></li>
+       {/if}
+         <li {if $operation == 'photo_edit'} class="active" {/if}><a>宽带宣传图修改</a></li>
+</ul>
+<div class="clearfix"> 
+    <form id="theform" class="form form-horizontal" action="{php echo  $this->createWebUrl('broadband', array('op'=>'update'));}" method="post">
+    
+        <div class="panel panel-default">
+            <div class="panel-heading">
+               宽带信息信息修改
+            </div>
+          
+ <div class="form-group" style="padding-top: 20px;">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">宽带兆数 (例：100M)</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="text" name="name" value="{$broadband_edit['name']}" class="form-control" required >
+                        
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">宽带价格(例：1000元一年
+                              2000元两年)</label>
+                    <div class="col-sm-9 col-xs-12">
+                         <textarea placeholder="" rows="10" cols="20" style="margin: 0px; width: 400px; height: 200px;" name="price" required >{$broadband_edit['price']}</textarea>
+                          
+                    </div>
+                </div>
+               <!--  <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">新装优惠</label>
+                    <div class="col-sm-9 col-xs-12">
+                       <textarea placeholder="" rows="10" cols="20" style="margin: 0px; width: 400px; height: 200px;" name="favorable" required >{$broadband_edit['favorable']}</textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">续费优惠</label>
+                    <div class="col-sm-9 col-xs-12">
+                       <textarea placeholder="" rows="10" cols="20" style="margin: 0px; width: 400px; height: 200px;" name="new" required >{$broadband_edit['new']}</textarea>
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">宽带详细介绍</label>
+                    <div class="col-sm-9 col-xs-12">
+                         {php echo tpl_ueditor('content',$broadband_edit['content']);}
+                    </div>
+                </div> -->
+                <input type="hidden" name="id" value="{$broadband_edit['id']}">
+                 <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">状态</label>
+                    <div class="col-sm-9 col-xs-12" style="position: relative;
+    top: 6px;">
+                     <input type="radio" name="status" value="0" {if $broadband_edit['status'] == 0} checked {/if} >启用
+                     <input type="radio" name="status" value="1" {if $broadband_edit['status'] == 1} checked {/if} >下架
+                    </div>
+                 </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                    <div class="col-md-2 col-lg-1">
+                        <input name="submit" type="submit" value="修改" class="btn btn-primary btn-block">
+                        <input type="hidden" name="token" value="85616f84">
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+    </form>
+</div>

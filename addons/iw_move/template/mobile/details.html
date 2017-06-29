@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="viewport" content="user-scalable=no,width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/addons/iw_move/template/mobile/css/reset200802.css"/>
+    <title>维修工中心</title>
+    <style>
+        body{background:#ECECEC;}
+        .wrap .con1{text-align: center;margin-top: 8%}
+        .wrap .con1 ul li{padding:8px;}
+        .wrap .con1 img{width: 80px;height: 80px; padding:14px;border:2px solid #53B6DB;border-radius: 50%;}
+
+        .wrap .con2 ul{background:#fff;margin-top: 4%;}
+        .wrap .con2 ul li div{border-bottom: 1px solid #ECECEC;display:flex; justify-content: space-between;align-items:center;padding:5%;}
+        .wrap .con2 img{width:7%;height:7%;padding-right:5%;}
+        a{
+			text-decoration: none;
+			color: black;
+     
+		}
+       a:link{
+        color:#000;
+       } 
+       a:visited{
+        color:#000;
+       }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+       <div class="con1">
+           <ul>
+               <!-- <li><img src="images/name.png" alt=""></li> -->
+               <li><img src="{$details['avatar']}" alt=""></li>
+               <li>{$details['name']}</li>
+               <li>{$details['phone']}</li>
+               <li>班组ID：{$details['tid']}</li>
+               <li>班组名称：{$details['team']}</li>
+           </ul>
+       </div>
+       <div class="con2">
+           <ul>
+           {if $details['start']['status'] == 0}
+               <li>
+               <a href="{php echo $this->createMobileUrl('staff',array('op'=>'edit','id'=>$details['id']))}">
+               <div>
+                  <span>修改个人信息</span>
+                   <img src="/addons/iw_move/template/mobile/images/back.png" alt="">
+               </div>
+             </a>
+                 
+               </li>
+          {/if}
+          <li>
+               <a href="{php echo $this->createMobileUrl('staff',array('op'=>'record','id'=>$details['id']))}">
+               <div>
+                  <span>维修记录</span>
+                   <img src="/addons/iw_move/template/mobile/images/back.png" alt="">
+               </div>
+             </a>
+                 
+               </li>
+              <li>
+               <a href="{php echo $this->createMobileUrl('staff',array('op'=>'center','id'=>$details['id']))}">
+               <div>
+                  <span>我的推广</span>
+                   <img src="/addons/iw_move/template/mobile/images/back.png" alt="">
+               </div>
+             </a>
+                 
+               </li>
+               <li>
+               <a href="{php echo $this->createMobileUrl('staff',array('op'=>'generalize'))}">
+               <div>
+                  <span>推广二维码</span>
+                   <img src="/addons/iw_move/template/mobile/images/back.png" alt="">
+               </div>
+             </a>
+             </li>   
+           </ul>
+       </div>
+    </div>
+</body>
+</html>

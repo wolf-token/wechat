@@ -1,0 +1,51 @@
+{template 'common/header'}
+
+<ul class="nav nav-tabs">
+      <li {if $operation == 'list'} class="active" {/if}><a href="{php echo  $this->createWebUrl('question', array('op'=>'list'));}">常见问题列表</a></li>
+       <li {if $operation == 'add'} class="active" {/if}><a href="{php echo  $this->createWebUrl('question', array('op'=>'add'));}">常见问题添加</a></li>
+        <li {if $operation == 'type_list'} class="active" {/if}><a href="{php echo  $this->createWebUrl('question', array('op'=>'type_list'));}">常见问题分类列表</a></li>
+         <li {if $operation == 'type_add'} class="active" {/if}><a href="{php echo  $this->createWebUrl('question', array('op'=>'type_add'));}">常见问题分类添加</a></li>
+        <li {if $operation == 'type_edit'} class="active" {/if}><a href="{php echo  $this->createWebUrl('question', array('op'=>'type_edit'));}">常见问题分类修改</a></li>
+</ul>
+<div class="clearfix"> 
+    <form id="theform" class="form form-horizontal" action="{php echo  $this->createWebUrl('question', array('op'=>'update'));}" method="post">
+    
+        <div class="panel panel-default">
+            <div class="panel-heading">
+            常见问题分类修改
+            </div>
+          {template 'common/load'}
+               <div class="form-group" style="padding-top: 50px">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">分类名称</label>
+                    <div class="col-sm-9 col-xs-12">
+                         <input type="text" name="name" value="$type_edit['name']">
+                    </div>
+                </div>
+                <input type="hidden" name="id" value="{$type_edit['id']}">
+                 <div class="form-group" style="padding-top: 50px">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">分类简介</label>
+                    <div class="col-sm-9 col-xs-12">
+                         {php echo tpl_ueditor('content',$type_edit['content']);}
+                    </div>
+                </div>
+                <!--  <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">状态</label>
+                    <div class="col-sm-9 col-xs-12" style="position: relative;
+    top: 6px;">
+                     <input type="radio" name="status" value="0" {if $type_edit['status'] == 0} checked {/if} >启用
+                     <input type="radio" name="status" value="1" {if $type_edit['status'] == 1} checked {/if} >下架
+                    </div>
+                 </div> -->
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                    <div class="col-md-2 col-lg-1">
+                        <input name="submit" type="submit" value="修改" class="btn btn-primary btn-block">
+                        <input type="hidden" name="token" value="85616f84">
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+    </form>
+</div>

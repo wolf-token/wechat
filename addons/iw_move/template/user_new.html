@@ -1,0 +1,49 @@
+{template 'common/header'}
+
+<ul class="nav nav-tabs">
+      <li {if $operation == 'list'} class="active" {/if}><a href="{php echo  $this->createWebUrl('user', array('op'=>'list'));}">用户信息列表</a></li>
+        {if $admin['move'] == 1}
+       <li {if $operation == 'add'} class="active" {/if}><a href="{php echo  $this->createWebUrl('user', array('op'=>'add'));}">用户信息添加</a></li>
+       <li {if $operation == 'file'} class="active" {/if}><a href="{php echo  $this->createWebUrl('user', array('op'=>'file'));}">用户信息导入</a></li>
+       
+        <li {if $operation == 'down'} class="active" {/if}><a href="{php echo  $this->createWebUrl('user', array('op'=>'down'));}">用户数据导出</a></li>
+        <li {if $operation == 'time'} class="active" {/if}><a href="{php echo  $this->createWebUrl('user', array('op'=>'time'));}">按时间删除用户信息</a></li>
+        {/if}
+</ul>
+<div class="clearfix">
+{template 'common/load'}
+    <form id="theform" class="form form-horizontal" action="{php echo  $this->createWebUrl('account', array('op'=>'add'));}" enctype="multipart/form-data" method="post">
+     
+        <div class="panel panel-default">
+       <div class="panel-heading">
+               修改用户宽带账号导入
+            </div>
+               <div class="alert alert-info">
+               <h4 style="color: red">此处数据导入是用户在微信端自己注册信息，但是没有宽带账号的用户数据导入.</h4>
+        <h4>
+            <i class="fa fa-info-circle"></i>
+            说明: 数据导入所需时间比较长，当点击导入按钮后，请不要关闭此页面。成功后会自动跳转！<br>
+        </h4>
+       
+    </div>
+                <div class="form-group" style="padding-top: 20px;">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">导入信息</label>
+                    <div class="col-sm-9 col-xs-12">
+                       <input  type="file" name="file_stu" value="">
+                      <!-- <input type="text" name="id" value=""> -->
+                    </div>
+                </div>
+                 
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                    <div class="col-md-2 col-lg-1">
+                        <input name="submit" type="submit" value="导入" class="btn btn-primary btn-block">
+                        <input type="hidden" name="token" value="85616f84">
+                    </div>
+                </div>
+        
+            </div>
+      
+        </div>
+    </form>
+</div>

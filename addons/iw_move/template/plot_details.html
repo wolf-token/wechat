@@ -1,0 +1,176 @@
+{template 'common/header'}
+<style type="text/css">
+  .col-sm-9{
+    padding-top:7px;
+  }
+</style>
+
+<ul class="nav nav-tabs">
+      <li {if $operation == 'list'} class="active" {/if}><a href="{php echo  $this->createWebUrl('plot', array('op'=>'list'));}">小区信息列表</a></li>
+      {if $admin['move'] == 1}
+       <li {if $operation == 'add'} class="active" {/if}><a href="{php echo  $this->createWebUrl('plot', array('op'=>'add'));}">小区信息添加</a></li>
+       <li {if $operation == 'file'} class="active" {/if}><a href="{php echo  $this->createWebUrl('plot', array('op'=>'file'));}">小区信息导入</a></li>
+       {/if}
+        <li class="active"><a>小区信息详情</a></li>
+        {if $admin['move'] == 1}
+        
+        <li {if $operation == 'down'} class="active" {/if}><a href="{php echo  $this->createWebUrl('plot', array('op'=>'down'));}">小区数据导出</a></li>
+         <li {if $operation == 'time'} class="active" {/if}><a href="{php echo  $this->createWebUrl('plot', array('op'=>'time'));}">按时间删除小区信息</a></li>
+        {/if}
+</ul>
+<div class="clearfix"> 
+    <form id="theform" class="form form-horizontal" method="post">
+  
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                小区信息详情
+            </div>
+            {template 'common/load'}
+            <div class="panel-body">
+                
+                 <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">小区名称</label>
+                    <div class="col-sm-9 col-xs-12">
+                       {$plot_details['name']}
+                    </div>
+                </div>
+               
+                 <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">班组ID</label>
+                    <div class="col-sm-9 col-xs-12">
+                      {$plot_details['pid']}
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">班组名称</label>
+                    <div class="col-sm-9 col-xs-12">
+                        {$plot_details['nickname']}
+                    </div>
+                </div>
+               <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">地市Id</label>
+                    <div class="col-sm-9 col-xs-12">
+                       {$plot_details['aid']}
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">地址</label>
+                    <div class="col-sm-9 col-xs-12">
+                        {$plot_details['address']}
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">区县ID</label>
+                    <div class="col-sm-9 col-xs-12">
+                        {$plot_details['xid']}
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">街道ID</label>
+                    <div class="col-sm-9 col-xs-12">
+                        {$plot_details['jid']}
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">路/村ID</label>
+                    <div class="col-sm-9 col-xs-12">
+                        {$plot_details['lid']}
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">小区/班组ID</label>
+                    <div class="col-sm-9 col-xs-12">
+                       {$plot_details['qid']}
+                    </div>
+                </div>
+               <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">添加时间</label>
+                    <div class="col-sm-9 col-xs-12">
+                     {php echo date("Y-m-d H:i:s",$plot_details['time'])}
+                    </div>
+                </div>
+                
+        
+            </div>
+      
+        </div>
+    </form>
+</div>
+<div class="alert alert-info">
+        <h4 style="color:green">
+            <i class="fa fa-info-circle"></i>
+           负责此小区员工列表<br>
+        </h4>
+    </div>
+     <form action="" method="post" class="form-horizontal form">
+        <div class="panel panel-default">
+            <div class="table-responsive panel-body">
+                <table class="table table-hover">
+                    <thead class="navbar-inner">
+                    <tr>
+                        <th style="width:15%;">员工姓名</th>
+                        <th style="width:15%;">电话</th>
+                        <th style="width:15%;">微信昵称</th>          
+                        <th style="width:15%;">头像</th>          
+                        <th style="width:15%;">推广人数</th>          
+                        <th style="width:15%;">分配维修数量</th>          
+                        <th style="width:15%;">添加时间</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {loop $staff $it}
+                    <tr>
+                       
+                        <td>{$it['name']}</td>
+                        <td>{$it['phone']}</td>
+                        <td>{$it['nickname']}</td>
+                        <td><img width="20%" src="{$it['avatar']}"></td>
+                        <td>{$it['math']}</td>
+                        <td>{$it['service']}</td>
+                        <td>{$it['time']}</td>
+                    </tr>
+                    {/loop}
+                    </tbody>
+                </table>
+                {$pager3}
+            </div>
+        </div>
+    </form>
+ <div class="alert alert-info">
+        <h4 style="color:green">
+            <i class="fa fa-info-circle"></i>
+           此小区客户列表<br>
+        </h4>
+    </div>
+     <form action="" method="post" class="form-horizontal form">
+        <div class="panel panel-default">
+            <div class="table-responsive panel-body">
+                <table class="table table-hover">
+                    <thead class="navbar-inner">
+                    <tr>
+                        <th style="width:15%;">客户头像</th>
+                        <th style="width:15%;">客户姓名</th>
+                        <th style="width:15%;">客户电话</th>          
+                        <th style="width:15%;">客户地址</th>          
+                        <th style="width:15%;">客户推广人数</th>          
+                        <th style="width:15%;">添加时间</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {loop $station_plot $item}
+                    <tr>
+                        <td><img width="20%" src="{$item['avatar']}"></td>
+                        <td>{$item['name']}</td>
+                        <td>{$item['phone']}</td>
+                        <td>{$item['address']}</td>
+                        <td>{$item['math']}</td>
+                        <td>{$item['time']}</td>
+                    </tr>
+                    {/loop}
+                    </tbody>
+                </table>
+                {$pager2}
+            </div>
+        </div>
+    </form>

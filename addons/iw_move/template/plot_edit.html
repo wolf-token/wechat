@@ -1,0 +1,93 @@
+{template 'common/header'}
+
+
+<ul class="nav nav-tabs">
+      <li {if $operation == 'list'} class="active" {/if}><a href="{php echo  $this->createWebUrl('plot', array('op'=>'list'));}">小区信息列表</a></li>
+       <li {if $operation == 'add'} class="active" {/if}><a href="{php echo  $this->createWebUrl('plot', array('op'=>'add'));}">小区信息添加</a></li>
+       <li {if $operation == 'file'} class="active" {/if}><a href="{php echo  $this->createWebUrl('plot', array('op'=>'file'));}">小区信息导入</a></li>
+        <li class="active"><a>小区信息修改</a></li>
+       
+        <li {if $operation == 'down'} class="active" {/if}><a href="{php echo  $this->createWebUrl('plot', array('op'=>'down'));}">小区数据导出</a></li>
+         <li {if $operation == 'time'} class="active" {/if}><a href="{php echo  $this->createWebUrl('plot', array('op'=>'time'));}">按时间删除小区信息</a></li>
+</ul>
+<div class="clearfix"> 
+{template 'common/load'}
+     <form id="theform" class="form form-horizontal" action="{php echo  $this->createWebUrl('plot', array('op'=>'update'));}" method="post">
+  
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                小区信息修改
+            </div>
+            <div class="panel-body">
+                
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">小区名称</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="text" name="name" value="{$plot_edit['name']}" class="form-control">
+                    </div>
+                </div>
+               
+                 <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">班组ID</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="text" name="pid" value="{$plot_edit['pid']}" class="form-control">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">班组名称</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="text" name="nickname" value="{$plot_edit['nickname']}" class="form-control">
+                    </div>
+                </div>
+               <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">地市Id</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="text" name="aid" value="{$plot_edit['aid']}" class="form-control">
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">地址</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="text" name="address" value="{$plot_edit['address']}" class="form-control">
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">区县ID</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="text" name="xid" value="{$plot_edit['xid']}" class="form-control">
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">街道ID</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="text" name="jid" value="{$plot_edit['jid']}" class="form-control">
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">路/村ID</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="text" name="lid" value="{$plot_edit['lid']}" class="form-control">
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"小区/班组ID</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="text" name="qid" value="{$plot_edit['qid']}" class="form-control">
+                    </div>
+                </div>
+                <input type="hidden" name="id" value="{$plot_edit['id']}">
+ 
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                    <div class="col-md-2 col-lg-1">
+                        <input name="submit" type="submit" value="修改" class="btn btn-primary btn-block">
+                        <input type="hidden" name="token" value="85616f84">
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+    </form>
+</div>

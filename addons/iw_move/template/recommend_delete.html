@@ -1,0 +1,64 @@
+{template 'common/header'}
+<style type="text/css">
+    .a{
+        border-radius: 8px;
+        border:2px solid #428BCA;
+    }
+</style>
+<ul class="nav nav-tabs">
+     <li {if $operation == 'list'} class="active" {/if}><a href="{php echo  $this->createWebUrl('recommend', array('op'=>'list'));}">推荐业务信息列表</a></li>
+      <!-- {if $admin['move'] == 1 } -->
+       <li {if $operation == 'add'} class="active" {/if}><a href="{php echo  $this->createWebUrl('recommend', array('op'=>'add'));}">推荐业务信息添加</a></li>
+      <!-- {/if} -->
+        <li {if $operation == 'has'} class="active" {/if}><a href="{php echo  $this->createWebUrl('recommend', array('op'=>'has'));}">已分配推荐业务信息</a></li>
+         <li {if $operation == 'not'} class="active" {/if}><a href="{php echo  $this->createWebUrl('recommend', array('op'=>'not'));}">未分配推荐业务信息</a></li>
+     <li {if $operation == 'down'} class="active" {/if}><a href="{php echo  $this->createWebUrl('recommend', array('op'=>'down'));}">业务信息数据导出</a></li>
+      <li {if $operation == 'time'} class="active" {/if}><a href="{php echo  $this->createWebUrl('recommend', array('op'=>'time'));}">按时间删除业务信息数据</a></li>
+     
+       
+</ul>
+<div class="clearfix"> 
+{template 'common/load'}
+    <form id="theform" class="form form-horizontal" action="{php echo  $this->createWebUrl('remove', array('op'=>'edit'));}" method="post">
+	
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                按时间删除业务信息数据
+            </div>
+            <div class="alert alert-info">
+        <h4>
+            <i class="fa fa-info-circle"></i>
+            说明: 数据一旦删除将不能恢复，请谨慎操作。<br>
+        </h4>
+       
+    </div>
+            <div class="panel-body">
+                
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">删除数据时间区间</label>
+                    <div class="col-sm-9 col-xs-12" style="position: relative;top: 6px;">
+                      {php echo tpl_form_field_daterange('datelimit', array('start'=>date('Y-m-d H:i',time()),'end'=>date('Y-m-d H:i',time())), true)}
+                    </div>
+                </div>
+               <div class="form-group" >
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">导出数据类型</label>
+                    <div class="col-sm-9 col-xs-12"  style="position: relative;top: 6px;font-size: 20px;">
+                        <input type="radio" name="type" value="0">未分配业务
+                        <input type="radio" name="type" value="1" checked>已分配业务
+                        <span style="color: red;font-size: 20px;">请选择好删除的数据类型</span>
+                    </div>
+                </div>
+               
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                    <div class="col-md-2 col-lg-1">
+                        <input name="submit" type="submit" value="删除数据" class="btn btn-primary btn-block">
+                        <input type="hidden" name="token" value="85616f84">
+                    </div>
+                </div>
+				
+            </div>
+			
+        </div>
+    </form>
+</div>

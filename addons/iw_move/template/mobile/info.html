@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="viewport" content="user-scalable=no,width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/addons/iw_move/template/mobile/css/reset200802.css"/>
+    <title>固话办理</title>
+    <style>
+        body{background:#ECECEC;font-size:14px;}
+        .wrap ul{margin-top:10%;}
+        .wrap ul li{display:flex; justify-content: space-around;align-items:center;margin-top:1px;background:#fff;padding:8px 10px;}
+        img{width:7%;height:7%;}
+        .wrap ul li input{border:none;color:#c2c2c2;}
+        .wrap .title{display:flex; flex-direction:left;align-items:center;margin-top:3%;background:#fff;padding:3%;}
+        .wrap .title img{margin-left:3%;}
+        .wrap .title span{margin-left:5%;}
+        /*.wrap .content1{width:100%;background:#fff;border-radius:3px;margin:4% auto;padding:10px;text-align:left;}*/
+        .wrap .content2{width:80%;height:100px;background:#fff;border-radius:3px;margin:4% 7%;padding:10px;}
+        .tijiao{width:90%;background:#51B8D9;border-radius:8px;border:none;display:block;margin:8% auto;padding:10px;color:#fff;font-size:14px;}
+        .an{
+            width: 80%;
+            height: 40px;
+            border-radius: 15px;
+            background: #Fff;
+            border:1px ;
+            margin: 10px auto;
+            line-height: 40px;
+            text-align: center;
+
+        }
+        .an:hover{
+            background-color: #ccc;
+        }
+        .an span{
+            width: 100%;
+            height: 40px;
+            display: block;
+            /*background:#000;*/
+        }
+        .tishi{
+            width: 100%;
+            height: 150px;
+
+        }
+        .tishi img{
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="wrap">
+    <form action="{php echo $this->createMobileUrl('fixed',array('op'=>'last'))}" method="post">
+        <ul>
+            <li>
+                <img src="/addons/iw_move/template/mobile/images/xiaoqu.png" alt="">
+                <span>所在小区</span>
+                <input type="text" value="{$person['plot']}" name="plat" id="plat" class="xiaoquname" required >
+               <!--  <input type="reset" name="" value="修改" style="background: white;color: #0074BA;"> -->
+                <div id="reset" style="background: white;color: #0074BA;">修改</div>
+            </li>
+            <li>
+                <img src="/addons/iw_move/template/mobile/images/phone.png" alt="">
+                <span>联系电话</span>
+                <input type="tel" name="phone" maxlength="11" id="phone" value="{$person['phone']}" required>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+            </li>
+            <li>
+                <img src="/addons/iw_move/template/mobile/images/name.png" alt="">
+                <span>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</span>
+                <input type="text" name="name" value="{$person['name']}" id="name" required>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+            </li>
+        </ul>
+        <input type="hidden" name="id" value="{$info['id']}">
+        <div class="title">
+            <img src="/addons/iw_move/template/mobile/images/4.png" alt="">
+            <span>名称：{$info['name']}</span>
+        </div>
+        <div class="title">
+            <img src="/addons/iw_move/template/mobile/images/3.png" alt="">
+            <span>主题：{$info['theme']}</span>
+        </div>
+         <div class="title">
+            <img src="/addons/iw_move/template/mobile/images/2.png" alt="">
+            <span>介绍：{$info['introduce']}</span>
+        </div>
+        <button class="tijiao">提&nbsp;&nbsp;交</button>
+</form>
+    </div>
+    <div class="tishi">
+        <img src="/addons/iw_move/template/mobile/images/tishi.png">
+
+    </div>
+</body>
+
+    <script type="text/javascript">
+            document.getElementById('reset').onclick= function(){
+
+                document.getElementById("name").value = "";
+                document.getElementById("plat").value = "";
+                document.getElementById("phone").value = "";
+               
+            }
+                
+                
+        
+    </script>
+</html>

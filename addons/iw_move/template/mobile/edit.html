@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="viewport" content="user-scalable=no,width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/addons/iw_move/template/mobile/css/reset200802.css"/>
+    <title>修改个人信息</title>
+    <style>
+        body{background:#ECECEC;}
+        .wrap .con1{text-align: center;margin-top: 8%}
+        .wrap .con1 img{width:10%;height:10%;padding:14px;border:2px solid #53B6DB;border-radius: 50%;}
+
+        .wrap .con2 ul{background:#fff;margin-top: 4%;}
+        .wrap .con2 ul li{border-bottom: 1px solid #ECECEC;display:flex; justify-content: space-around;align-items:center;padding:5%;}
+        .wrap input{border:none;color:#7B7B7B;padding:5px 0px;}
+        .wrap .guanli{text-align: center;padding:5%;}
+        .wrap .fanwei{width:100%;background:#fff;padding:5%;}
+        .baocun{width:90%;background:#51B8D9;border-radius:8px;border:none;display:block;margin:12% auto;padding:10px;color:#fff;font-size:14px;}
+    </style>
+</head>
+<body>
+    <div class="wrap">
+       <div class="con1">
+          <img src="{$edit['avatar']}" alt="">
+       </div>
+       <div class="con2">
+       <form method="post" action="{php echo $this->createMobileUrl('staff',array('op'=>'update'))}">
+      <input type="hidden" name="id" value="{$edit['id']}">
+           <ul>
+               <li><span>真实姓名:</span><input type="text" name="name" value="{$edit['name']}"></li>
+               <li><span>班组ID：</span><input type="text" name="tid" value="{$edit['tid']}"></li>
+               <li><span>手机号码：</span><input type="tel" name="phone" maxlength="11" value="{$edit['phone']}"></li>
+               <li><span>密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码：</span><input type="password" name="pass" value=""></li>
+           </ul>
+       </div>
+       <div class="guanli">班组名称：</div>
+       <div class="fanwei"><input type="text" name="team" value="{$edit['team']}"></div>
+       <button class="baocun">保&nbsp;&nbsp;存</button>
+       </form>
+    </div>
+</body>
+</html>

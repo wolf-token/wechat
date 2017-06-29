@@ -1,0 +1,61 @@
+{template 'common/header'}
+
+<ul class="nav nav-tabs">
+      <li {if $operation == 'list'} class="active" {/if}><a href="{php echo  $this->createWebUrl('recommend', array('op'=>'list'));}">推荐业务信息列表</a></li>
+       <li {if $operation == 'add'} class="active" {/if}><a href="{php echo  $this->createWebUrl('recommend', array('op'=>'add'));}">推荐业务信息添加</a></li>
+        <li {if $operation == 'edit'} class="active" {/if}><a>推荐业务信息信息修改</a></li>
+         <li {if $operation == 'has'} class="active" {/if}><a href="{php echo  $this->createWebUrl('recommend', array('op'=>'has'));}">已分配推荐业务信息</a></li>
+         <li {if $operation == 'not'} class="active" {/if}><a href="{php echo  $this->createWebUrl('recommend', array('op'=>'not'));}">未分配推荐业务信息</a></li>
+          <li {if $operation == 'down'} class="active" {/if}><a href="{php echo  $this->createWebUrl('recommend', array('op'=>'down'));}">业务信息数据导出</a></li>
+           <li {if $operation == 'time'} class="active" {/if}><a href="{php echo  $this->createWebUrl('recommend', array('op'=>'time'));}">按时间删除业务信息数据</a></li>
+</ul>
+<div class="clearfix"> 
+    <form id="theform" class="form form-horizontal" action="{php echo  $this->createWebUrl('recommend', array('op'=>'update'));}" method="post">
+    
+        <div class="panel panel-derecommend">
+            <div class="panel-heading">
+                推荐业务信息信息修改
+            </div>
+            {template 'common/load'}
+            <div class="panel-body">
+                
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">用户姓名</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="text" name="name" value="{$recommend_edit['name']}" class="form-control">
+                    </div>
+                </div>
+                <input type="hidden" name="id" value="{$recommend_edit['id']}">
+                 <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">用户电话</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="text" name="phone" value="{$recommend_edit['phone']}" class="form-control">
+                    </div>
+                </div>
+        
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">申用户地址</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="text" name="address" value="{$recommend_edit['address']}" class="form-control">
+                    </div>
+                </div>
+                
+                 <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">推荐业务描述</label>
+                    <div class="col-sm-9 col-xs-12">
+                       <textarea placeholder="" rows="7" style="margin: 0px; width: 826px; height: 280px;" name="content" required="" >{$recommend_edit['content']}</textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                    <div class="col-md-2 col-lg-1">
+                        <input name="submit" type="submit" value="修改" class="btn btn-primary btn-block">
+                        <input type="hidden" name="token" value="85616f84">
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+    </form>
+</div>

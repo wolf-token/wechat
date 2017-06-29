@@ -1,0 +1,169 @@
+{template 'common/header'}
+<style type="text/css">
+  li,p,ul { 
+    margin: 0;
+    padding: 0;
+    font: 12px/1 Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
+}
+ul, li, ol { list-style: none; }
+/* 重置文本格式元素 */
+a { text-decoration: none; cursor: pointer; color:#333333; font-size:14px;}
+a:hover { text-decoration: none; }
+.clearfix::after{ display:block; content:''; height:0; overflow:hidden; clear:both;} 
+/*星星样式*/
+.content{ width:600px; margin:0 auto; padding-top:20px;}
+.title{ font-size:14px; background:#dfdfdf; padding:10px; margin-bottom:10px;}
+.block{ width:100%; margin:0 0 20px 0; padding-top:10px; padding-left:50px; line-height:21px;}
+.block .star_score{ float:left;}
+.star_list{height:21px;margin:50px; line-height:21px;}
+.block p,.block .attitude{ padding-left:20px; line-height:21px; display:inline-block;}
+.block p span{ color:#C00; font-size:16px; font-family:Georgia, "Times New Roman", Times, serif;}
+.star_score { background:url(/addons/iw_move/template/mobile/images/stark2.png); width:160px; height:21px;  position:relative; }
+.star_score a{ height:21px; display:block; text-indent:-999em; position:absolute;left:0;}
+.star_score a:hover{ background:url(/addons/iw_move/template/mobile/images/stars2.png);left:0;}
+.star_score a.clibg{ background:url(/addons/iw_move/template/mobile/images/stars2.png);left:0;}
+#starttwo .star_score { background:url(/addons/iw_move/template/mobile/images/starky.png);}
+#starttwo .star_score a:hover{ background:url(/addons/iw_move/template/mobile/images/starsy.png);left:0;}
+#starttwo .star_score a.clibg{ background:url(/addons/iw_move/template/mobile/images/starsy.png);left:0;}
+/*星星样式*/
+/*.show_number{ padding-left:50px; padding-top:20px;}*/
+/*.show_number li{ width:240px; padding:10px; margin-right:5px; margin-bottom:20px;}*/
+.atar_Show{background:url(/addons/iw_move/template/mobile/images/stark2.png); width:160px; height:21px;  position:relative; float:left; }
+.atar_Show p{ background:url(/addons/iw_move/template/mobile/images/stars2.png);left:0; height:21px; width:134px;}
+.show_number li span{ display:inline-block;}
+  .bt{
+    background:#33485D;
+    color: white;
+    font-size: 15px;
+    margin-bottom: 5px;
+  }
+</style>
+<ul class="nav nav-tabs">
+      <li {if $operation == 'list'} class="active" {/if}><a href="{php echo  $this->createWebUrl('estimate', array('op'=>'list'));}">已评价订单列表</a></li>
+       <li {if $operation == 'dispose'} class="active" {/if}><a href="{php echo  $this->createWebUrl('estimate', array('op'=>'dispose'));}">未评价订单列表</a></li>
+       <li {if $operation == 'down'} class="active" {/if}><a href="{php echo  $this->createWebUrl('estimate', array('op'=>'down'));}">订单信息数据导出</a></li>
+     
+         
+</ul>
+<div class="main">
+{template 'common/load'}
+  <div class="panel panel-info">
+      <div class="panel-heading">筛选</div>
+      <div class="panel-body">
+        <form action="{php echo  $this->createWebUrl('estimate', array('op'=>'dispose'));}" method="post" class="form-horizontal" role="form">
+       
+          <div class="form-group">
+            <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">关键字</label>
+            <div class="col-sm-8 col-lg-9">
+              <input class="form-control" name="keyword" placeholder="申报人姓名/电话/申报人所在小区" type="text" value="">
+            </div>
+            <div class=" col-xs-12 col-sm-2 col-lg-2">
+              <button class="btn btn-deestimate"><i class="fa fa-search"></i> 搜索</button>
+            </div>
+          </div>
+          <div class="form-group">
+          </div>
+        </form>
+      </div>
+  
+    </div>
+    <form action="{php echo  $this->createWebUrl('estimate', array('op'=>'estimate_delete'));}" method="post" class="form-horizontal form">
+    <button class="bt">删除所选中的信息</button>
+        <div class="panel panel-deestimate">
+            <div class="table-responsive panel-body">
+                <table class="table table-hover">
+                    <thead class="navbar-inner">
+                    <tr>
+                     <th style="width: 4%"><div><input type="checkbox" name="xaun" onclick="selectAll()">全选</div></th>
+                        <th style="width:8%;">ID</th>
+                        <th style="width:8%;">申报人姓名</th>                    
+                        <th style="width:8%;">电话</th>                    
+                        <th style="width:15%;">故障详情</th>                    
+                        <th style="width:8%;">申报来源</th>                    
+                        <th style="width:8%;">申报类型</th>                    
+                        <th style="width:13%;">评价状态</th>                    
+                        <th style="width:7%;">申报人所在小区</th>
+                        <th style="width:10%;">添加时间</th>
+                        <th style="width:12%;">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {loop $nothing $item}
+                    <tr>
+                      <td><input type="checkbox" name="ipn-id[]" value="{$item['id']}"></td>
+                        <td>{$item['id']}</td>
+                        <td>{$item['name']}</td>
+                        <td>{$item['phone']}</td>
+                        <td>{$item['details']}</td>
+                         <td>
+                          {if $item['come'] == 0}
+                                <span style="color: green;">员工推荐 </span> 
+                            {elseif $item['come'] == 1}
+                                <span style="color: #428BCA;">客户推荐 </span>
+                             {elseif $item['come'] == 2}
+                                <span style="color: #D9534F;">客服后台添加 </span>
+                            {/if}
+                        </td>
+                        <td>
+                          {if $item['type'] == 1}
+                                <span class="label label-success">报修 </span> 
+                            {elseif $item['type'] == 0}
+                                <span class="label label-warning" >报装 </span>
+                            
+                            {/if}
+                        </td>
+                       <td>
+                           {if $item['appraise'] == 1}
+                                <span class="label label-success">已评价 </span> 
+                            {elseif $item['appraise'] == 0}
+                                <span class="label label-warning" >未平价 </span>
+                            
+                            {/if}
+
+                        </td>
+                   
+                        <td>{$item['plat']}</td>
+                        <td>{php echo date("Y-m-d H:i:s",$item['time'])}</td>
+                        
+                        <td style="text-align:left;">
+	                        <a class="btn btn-info btn-sm" href="{php echo  $this->createWebUrl('fault', array('op'=>'details','id'=>$item['id']));}" title="详情">详情</a>
+                          <!-- {if $admin['move'] == 1 } -->
+	                        <a class="btn btn-info btn-sm" href="{php echo  $this->createWebUrl('estimate', array('op'=>'edit','id'=>$item['id']));}" title="评价订单">评价订单</a>
+                           
+	                        <a class="btn btn-danger btn-sm" href="{php echo  $this->createWebUrl('fault', array('op'=>'delete','id'=>$item['id']));}" title="删除网点" onclick="return confirm('此操作不可恢复，确认删除？');return false;"><i class="fa fa-times"></i></a>
+                          <!-- {/if} -->
+                      </td>                    
+                    </tr>
+                    {/loop}
+                    </tbody>
+                </table>
+                {$pager}
+            </div>
+        </div>
+    </form>
+</div>
+ <script>
+        //显示分数
+          $(".show_number li p").each(function(index, element) {
+            var num=$(this).attr("tip");
+            var www=num*2*16;//
+            $(this).css("width",www);
+            $(this).parent(".atar_Show").siblings("span").text(num+"分");
+        });
+
+        </script>
+<script>
+      function selectAll(){
+        var a = document.getElementsByName("ipn-id[]");
+         if(a[0].checked){
+            for(var i=0 ;i<a.length;i++){
+                if(a[i].type=='checkbox')a[i].checked=false;   
+            }
+         }
+         else{
+          for(var i = 0;i<a.length;i++){
+          if(a[i].type == "checkbox") a[i].checked = true;
+          }
+         }
+      }
+</script>

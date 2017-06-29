@@ -1,0 +1,122 @@
+{template 'common/header'}
+<style type="text/css">
+    #c{
+
+        position: relative;top: 8px;
+
+            }
+</style>
+<ul class="nav nav-tabs">
+       
+        <li {if $operation == 'not'} class="active" {/if}><a href="{php echo  $this->createWebUrl('indent', array('op'=>'not'));}">未分配订单列表</a></li>
+         <li class="active" ><a>未分配订单修改</a></li>
+         
+</ul>
+<div class="clearfix"> 
+    <form id="theform" class="form form-horizontal" action="{php echo  $this->createWebUrl('not', array('op'=>'update'));}" method="post">
+    
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                未分配订单修改
+            </div>
+            {template 'common/load'}
+            <div class="panel-body">
+                
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">申报人姓名</label>
+                    <div class="col-sm-9 col-xs-12" id="c">
+                        {$not_edit['name']}
+                    </div>
+                </div>
+                
+                 <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">申报人电话</label>
+                    <div class="col-sm-9 col-xs-12" id="c">
+                        {$not_edit['phone']}
+                    </div>
+                </div>
+        
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">申报人所在小区</label>
+                    <div class="col-sm-9 col-xs-12" id="c">
+                       {$not_edit['plat']}
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">申报类型</label>
+                     <div class="col-sm-9 col-xs-12"  id="c">
+                    {if $not_edit['type'] == 0}
+                                <span style="color: green;">报装 </span> 
+                            {elseif $not_edit['type'] == 1}
+                                <span style="color: #428BCA;">报修 </span>
+                             
+                            {/if}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">推荐来源</label>
+                     <div class="col-sm-9 col-xs-12"  id="c">
+                    {if $not_edit['come'] == 0}
+                                <span style="color: green;">员工推荐 </span> 
+                            {elseif $not_edit['come'] == 1}
+                                <span style="color: #428BCA;">客户推荐 </span>
+                             {elseif $not_edit['come'] == 2}
+                                <span style="color: #D9534F;">客服后台添加 </span>
+                            {/if}
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">订单状态</label>
+                     <div class="col-sm-9 col-xs-12"  id="c">
+                     {if $not_edit['status'] == 4}
+                                <span class="label label-success">已分配 </span> 
+                            {elseif $not_edit['status'] == 1}
+                                <span class="label label-warning" >处理中 </span>
+                             {elseif $not_edit['status'] == 2}
+                                <span class="label label-warning" >分配失败 </span>
+                               {elseif $not_edit['status'] == 3}
+                                <span class="label label-warning" >订单完成 </span>
+                                {elseif $not_edit['status'] == 0}
+                                <span class="label label-warning" >订单未做任何处理 </span>
+                            {/if}
+                    </div>
+                </div>
+                <input type="hidden" name="id" value="{$not_edit['id']}">
+                 <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">故障详情</label>
+                    <div class="col-sm-9 col-xs-12" id="c">
+                      {$not_edit['details']}
+                    </div>
+                </div>
+               <!--  <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">分配维修工的姓名</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="text" name="name" value="" class="form-control">
+                    </div>
+                </div>
+                
+                 <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">分配维修工的电话</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="tel" name="phone" value="" maxlength="11" class="form-control">
+                    </div>
+                </div> -->
+                 <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">分配维修工的班组ID</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="text" name="tid" value="" class="form-control" style="width:250px">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                    <div class="col-md-2 col-lg-1">
+                        <input name="submit" type="submit" value="分配" class="btn btn-primary btn-block">
+                        <input type="hidden" name="token" value="85616f84">
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+    </form>
+</div>

@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="viewport" content="user-scalable=no,width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/addons/iw_move/template/mobile/css/reset200802.css"/>
+    <title>常见问题</title>
+    <style>
+    body{background:url(/addons/iw_move/template/mobile/images/11.png) top center no-repeat; background-size:cover;}
+        .wrap .logo{display:flex; justify-content: space-around;align-items:center;margin-top:5%;margin-bottom: 20%;}
+        .md{background:#54B6DB;width:90%;margin:auto;border:2px solid #ECECEC;margin-top:1%;}
+        .md .name{font-size: 18px;padding:20px 30px;color: white;text-align: center;}
+    </style>
+</head>
+<body>
+    <div class="wrap" style="margin-top:50%;">
+   <!--  <form method="post" action="{php echo $this->createMobileUrl('staff',array('op'=>'add'))}"> -->
+        <!-- <div class="logo"><img src="/addons/iw_move/template/mobile/images/14.png" alt=""></div> -->
+        <!-- <div></div> -->
+       {loop $type $item}
+       <a href="{php echo $this->createMobileUrl('question',array('op'=>'edit',id=>$item['id']))}">
+        <div class="md">
+            <div class="name">{$item['name']}</div>
+        <!-- <button class="tijiao">立即登录</button> -->
+        </div>
+        </a>
+      {/loop}
+        <!-- </form> -->
+    </div>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="viewport" content="user-scalable=no,width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/addons/iw_move/template/mobile/css/reset200802.css"/>
+    <title>宽带选择</title>
+    <style>
+        body{background:#ECECEC;font-size:14px;}
+        .wrap ul{margin-top:10%;}
+        .wrap ul li{display:flex; justify-content: space-around;align-items:center;margin-top:1px;background:#fff;padding:8px 10px;}
+        img{width:7%;height:7%;}
+        .wrap ul li input{border:none;color:#c2c2c2;}
+        .wrap .title{display:flex; flex-direction:left;align-items:center;margin-top:5%;background:#fff;padding:3%;}
+        .wrap .title img{margin-left:3%;}
+        .wrap .title span{margin-left:5%;}
+        /*.wrap .content1{width:100%;background:#fff;border-radius:3px;margin:4% auto;padding:10px;text-align:left;}*/
+        .wrap .content2{width:80%;height:100px;background:#fff;border-radius:3px;margin:4% 7%;padding:10px;}
+        .tijiao{width:90%;background:#51B8D9;border-radius:8px;border:none;display:block;margin:8% auto;padding:10px;color:#fff;font-size:14px;}
+        .an{
+            width: 80%;
+            height: 40px;
+            border-radius: 15px;
+            background: #Fff;
+            border:1px ;
+            margin: 10px auto;
+            line-height: 40px;
+            text-align: center;
+
+        }
+        .an:hover{
+            background-color: #ccc;
+        }
+        .an span{
+            width: 100%;
+            height: 40px;
+            display: block;
+            /*background:#000;*/
+        }
+        .tishi{
+            width: 100%;
+            height: 150px;
+
+        }
+        .tishi img{
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="wrap">
+    <form action="{php echo $this->createMobileUrl('broad',array('op'=>'last'))}" method="post">
+        <ul>
+            <li>
+                <img src="/addons/iw_move/template/mobile/images/xiaoqu.png" alt="">
+                <span>所在小区</span>
+                <input type="text" value="{$person['plot']}" id="plat" name="plat" class="xiaoquname" required >
+               <!--  <input type="reset" name="" value="修改" style="background: white;color: #0074BA;"> -->
+                <div id="reset" style="background: white;color: #0074BA;">修改</div>
+            </li>
+            <li>
+                <img src="/addons/iw_move/template/mobile/images/phone.png" alt="">
+                <span>联系电话</span>
+                <input type="tel" name="phone" maxlength="11" id="phone" value="{$person['phone']}" required>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+            </li>
+            <li>
+                <img src="/addons/iw_move/template/mobile/images/name.png" alt="">
+                <span>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</span>
+                <input type="text" name="name" value="{$person['name']}" id="name" required>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+            </li>
+        </ul>
+        <div class="title">
+            <img src="/addons/iw_move/template/mobile/images/8.png" alt="">
+            <span>宽带类型</span>
+        </div>
+        {loop $band $item}
+        <div class="an">
+        <label>
+         <input type="radio" name="id" value="{$item['id']}" class="content1" required data-labelauty="{$item['name']}{$item['price']}" style="display: none;">
+             <span >{$item['name']}{$item['price']}</span>
+        </label>
+        </div>
+        
+        {/loop}
+       <!--  <div class="an" id="kd">
+            <label>
+         <input type="radio" name="type" value="0" class="content1" required data-labelauty="宽带" style="display: none;">
+             <span >宽带</span>
+        </label>
+        </div> -->
+           
+        <div class="title">
+            <img src="/addons/iw_move/template/mobile/images/wenti.png" alt="">
+            <span>安装年限描述</span>
+        </div>
+        <textarea class="content2" placeholder="请描述安装年限......" rows="7" name="details" required ></textarea>
+        <button class="tijiao">提&nbsp;&nbsp;交</button>
+</form>
+    </div>
+    <div class="tishi">
+        <img src="/addons/iw_move/template/mobile/images/tishi.png">
+
+    </div>
+</body>
+
+    <script type="text/javascript">
+            document.getElementById('reset').onclick= function(){
+
+                document.getElementById("name").value = "";
+                document.getElementById("plat").value = "";
+                document.getElementById("phone").value = "";
+               
+            }
+                
+                
+        
+    </script>
+</html>

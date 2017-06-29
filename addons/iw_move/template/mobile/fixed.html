@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html> </html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta name="renderer" content="webkit|ie-comp|ie-stand">
+        <meta name="viewport" content="user-scalable=no,width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8">
+        <title>固话业务</title>
+        <link rel="stylesheet" type="text/css" href="/addons/iw_move/template/mobile/css/reset200803.css"/>
+        <style>
+        a{
+            text-decoration:none; 
+        }
+            .product{margin-top:14%;font-family: "Microsoft YaHei";}
+            .product-content{width:90%;margin:auto;}
+            .product-show-title h3{ font-size: 22px;font-weight: bold;margin:10px 0px;}
+            .product-show-title span{color: #FFFFFF;background-color: #0086da;padding: 4px 5px;border-radius: 3px;display: inline-block;}
+            .product-show-ul li {padding: 20px 0;}
+            .product-add span, .product-intro span {font-weight: bold;margin:20px 0px;display: flex; align-items:center;}
+            .product-add div a {color: #ff8a44;text-decoration: underline;}
+            .product-intro p {font-size: 14px;line-height: 20px;display: inline;}
+            .product-content-right img{width:100%;margin: 10px 0;}
+            /*.span-img{
+            	width: 50px;
+            	height: 50px;
+            	display: flex;
+            	display: inline-flex;
+            }*/
+            .span-img img{
+            	width: 8%;
+            	height: 8%;
+            	margin:0 5px;
+            }
+             .qingjia{width:90%;background:#51B8D9;/*border-radius:8px;*/border:none;display:block;margin:2% auto;padding:10px;color:#fff;}
+
+        </style>
+    </head>
+    <body>
+       <ul>
+        {loop $fixed $item}
+            <li class="product">
+                <div class="product-content">
+                    <div class="product-content-left">
+                        <div class="product-show-title">
+                            <h3>{$item['name']}</h3>
+                            <span>{$item['theme']}</span>
+                        </div>
+                    
+                        <div class="product-show-content">
+                         <div class="product-add">
+                                
+                                <span class="span-img"> <img src="/addons/iw_move/template/mobile/images/basketball.png">查看详细介绍：</span>
+                                <div><a style="text-decoration:none;" href="{php echo $this->createMobileUrl('fixed',array('op'=>'details','id'=>$item['id']))}">点击进入{$item['name']}详情</a></div>
+                               
+                            </div> 
+                            <div class="product-intro">
+                                
+                                <span class="span-img"><img width="8%" src="/addons/iw_move/template/mobile/images/detai.png">详情介绍：</span>
+                                <div><p>{$item['introduce']}</p></div>
+                              
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-content-right">
+                        <a href="{php echo $this->createMobileUrl('fixed',array('op'=>'details','id'=>$item['id']))}"><img class="product-img right" src="/attachment/{$item['photo']}"></a>
+                    </div>  
+              
+                </div>
+            </li>
+            <a href="{php echo $this->createMobileUrl('fixed',array('op'=>'add','id'=>$item['id']))}">
+                <li>
+                
+                    <button class="qingjia">立即办理</button>
+                  
+                </li>
+              </a>
+            {/loop}
+       </ul>
+    </body>
+</html>

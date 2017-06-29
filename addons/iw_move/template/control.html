@@ -1,0 +1,221 @@
+{template 'common/header'}
+<style type="text/css">
+                    .testswitch {  
+    position: relative;  
+    float: left;   
+    width: 90px;  
+    margin: 0;  
+    -webkit-user-select:none;   
+    -moz-user-select:none;   
+    -ms-user-select: none;  
+}  
+  
+.testswitch-checkbox {  
+    display: none;  
+}  
+  
+.testswitch-label {  
+    display: block;   
+    overflow: hidden;   
+    cursor: pointer;  
+    border: 2px solid #999999;   
+    border-radius: 20px;  
+}  
+  
+.testswitch-inner {  
+    display: block;   
+    width: 200%;   
+    margin-left: -100%;  
+    transition: margin 0.3s ease-in 0s;  
+}  
+  
+.testswitch-inner::before, .testswitch-inner::after {  
+    display: block;   
+    float: right;   
+    width: 50%;   
+    height: 30px;   
+    padding: 0;   
+    line-height: 30px;  
+    font-size: 14px;   
+    color: white;   
+    font-family:   
+    Trebuchet, Arial, sans-serif;   
+    font-weight: bold;  
+    box-sizing: border-box;  
+}  
+  
+.testswitch-inner::after {  
+    content: attr(data-on);  
+    padding-left: 10px;  
+    background-color: #00e500;   
+    color: #FFFFFF;  
+}  
+  
+.testswitch-inner::before {  
+    content: attr(data-off);  
+    padding-right: 10px;  
+    background-color: #EEEEEE;   
+    color: #999999;  
+    text-align: right;  
+}  
+  
+.testswitch-switch {  
+    position: absolute;   
+    display: block;   
+    width: 22px;  
+    height: 22px;  
+    margin: 4px;  
+    background: #FFFFFF;  
+    top: 0;   
+    bottom: 0;  
+    right: 56px;  
+    border: 2px solid #999999;   
+    border-radius: 20px;  
+    transition: all 0.3s ease-in 0s;  
+}  
+  
+.testswitch-checkbox:checked + .testswitch-label .testswitch-inner {  
+    margin-left: 0;  
+}  
+  
+.testswitch-checkbox:checked + .testswitch-label .testswitch-switch {  
+    right: 0px;   
+}  
+                </style>
+<ul class="nav nav-tabs">
+      <li {if $operation == 'list'} class="active" {/if}><a href="{php echo  $this->createWebUrl('staff', array('op'=>'list'));}">员工信息列表</a></li>
+      {if $admin['move'] == 1}
+       <li {if $operation == 'add'} class="active" {/if}><a href="{php echo  $this->createWebUrl('staff', array('op'=>'add'));}">员工信息添加</a></li>
+       <li {if $operation == 'file'} class="active" {/if}><a href="{php echo  $this->createWebUrl('staff', array('op'=>'file'));}">员工信息导入</a></li>
+    <li {if $operation == 'control'} class="active" {/if}><a href="{php echo  $this->createWebUrl('staff', array('op'=>'control'));}">员工信息修改控制</a></li>
+    {/if}
+</ul>
+<div class="main">
+  <div class="panel panel-info">
+      <div class="panel-heading">开关控制的是员工是否可以修改个人信息</div>
+      {template 'common/load'}
+      <div class="panel-body">
+       
+      </div>
+  
+    </div>
+    <form action="" method="post" class="form-horizontal form">
+        <div class="panel panel-default">
+            <div class="table-responsive panel-body">
+                <table class="table table-hover">
+                    <thead class="navbar-inner">
+                    <tr>
+                        <th style="width:8%;">ID</th>
+                        <th style="width:8%;">开关状态(开关状态已显示为主，开关是操作作用)</th>
+                        
+                        <th style="width:10%;">修改时间</th>
+                        {if $admin['move'] == 1}
+                        <th style="width:12%;">操作</th>
+                        {/if}
+                    </tr>
+                    </thead>
+                    <tbody>
+                   
+                    <tr>
+                       <td>{$control['id']}</td>
+                       <input type="hidden" name="id" value="{$control['id']}" id="val">
+                       <td id="td">
+                          {if $control['status'] == 0}
+                                <span class="label label-success">已开启 </span> 
+                            {elseif $control['status'] == 1}
+                                <span class="label label-warning" >已关闭 </span>
+                            
+                            {/if}
+                       </td>
+                         <td>{$control['time']}</td>
+                         {if $admin['move'] == 1}
+                        <td style="text-align:left;">
+	                         <div class="testswitch">  
+                              <input class="testswitch-checkbox" id="onoffswitch" type="checkbox">  
+                              <label class="testswitch-label" for="onoffswitch">  
+                                  <span class="testswitch-inner" data-on="ON" data-off="OFF"></span>  
+                                  <span class="testswitch-switch"></span>  
+                              </label>  
+                          </div>  
+                      </td> 
+                      {/if}                   
+                    </tr>
+                    
+                    </tbody>
+                </table>
+               
+            </div>
+        </div>
+    </form>
+
+</div>
+      <script type="text/javascript">
+        // $(document).ready(function() {  
+          $("#onoffswitch").on('click', function(){ 
+
+          var  main = $("#val").val();
+              // clickSwitch(main); 
+           if ($("#onoffswitch").is(':checked')) {  
+
+            // alert("nice");
+                  
+                  $.ajax({
+
+            type:"POST",
+            data:{status:0,id:main},
+            url:"{php echo  $this->createWebUrl('control', array('op'=>'ja'));}",
+            dataType:"json",
+            success:function(res){
+              // console.log(res);
+              // alert(res);
+                if (res === 1) {
+                    var op;
+                    op= "  <span class='label label-success'>已开启 </span> ";
+
+                   $("#td").empty();
+                   // $("#td").html(op);
+
+                   $("#td").append(op);
+
+                }
+                
+            },
+           
+            async:false,
+
+        });
+
+              } else {  
+                   // alert("no");
+                     $.ajax({
+
+                    type:"POST",
+                    data:{status:1,id:main},
+                    url:"{php echo  $this->createWebUrl('control', array('op'=>'la'));}",
+                    dataType:"json",
+                    success:function(res){
+// console.log(res);
+             if (res === 1) {
+                            var td;
+                            td= "<span class='label label-warning' >已关闭 </span> ";
+
+                           $("#td").empty();
+                           // $("#td").html(td);
+                           $("#td").append(td);
+
+                        }
+                        
+                    },
+                   
+                    async:false,
+
+                   }); 
+              }   
+          });  
+        
+          // var clickSwitch = function(main) { 
+
+             
+          // };  
+// });  
+    </script>

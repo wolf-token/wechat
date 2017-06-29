@@ -1,0 +1,62 @@
+{template 'common/header'}
+<style type="text/css">
+  .col-sm-9{
+    padding-top:7px;
+  }
+</style>
+<ul class="nav nav-tabs">
+     <li {if $operation == 'list'} class="active" {/if}><a href="{php echo  $this->createWebUrl('question', array('op'=>'list'));}">常见问题列表</a></li>
+        <li {if $operation == 'type_list'} class="active" {/if}><a href="{php echo  $this->createWebUrl('question', array('op'=>'type_list'));}">常见问题分类列表</a></li>
+       
+      {if $admin['move'] == 1 }
+       <li {if $operation == 'add'} class="active" {/if}><a href="{php echo  $this->createWebUrl('question', array('op'=>'add'));}">常见问题添加</a></li>
+         <li {if $operation == 'type_add'} class="active" {/if}><a href="{php echo  $this->createWebUrl('question', array('op'=>'type_add'));}">常见问题分类添加</a></li>
+       {/if}
+        <li {if $operation == 'type_details'} class="active" {/if}><a href="{php echo  $this->createWebUrl('question', array('op'=>'type_details'));}">常见问题分类详情</a></li>
+</ul>
+<div class="clearfix"> 
+    <form id="theform" class="form form-horizontal" method="post">
+  
+        <div class="panel panel-default">
+            <div class="panel-heading">
+              常见问题分类详情
+            </div>
+            {template 'common/load'}
+            <div class="panel-body">
+                
+               <div class="form-group" style="padding-top: 50px">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">分类名称</label>
+                    <div class="col-sm-9 col-xs-12">
+                          {$type_details['name']}
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">分类简介</label>
+                    <div class="col-sm-9 col-xs-12">
+                      {$type_details['content']}
+                    </div>
+                </div>
+               <!--  <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">状态</label>
+                    <div class="col-sm-9 col-xs-12">
+                    
+                           {if $type_details['status'] == 0}
+                                <span class="label label-success">已启用 </span> 
+                            {elseif $type_details['status'] == 1}
+                                <span class="label label-warning" >已停用 </span>
+                            
+                            {/if}
+                    </div>
+                 </div> -->
+                 <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">添加时间</label>
+                    <div class="col-sm-9 col-xs-12">
+                      {$type_details['time']}
+                    </div>
+                 </div>
+        
+            </div>
+      
+        </div>
+    </form>
+</div>

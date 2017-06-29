@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="viewport" content="user-scalable=no,width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/addons/iw_move/template/mobile/css/reset200802.css"/>
+    <title>服务评价</title>
+    <style>
+        body{background:#ECECEC;}
+        .wrap .qingjia{background: #fff;}
+        .wrap .fl{float: left;}
+        .wrap .who{padding:10%;border-bottom: 2px dashed #EDEDED;}
+        .wrap .who .tx{width:16%;margin-top:4%}
+        .wrap .who .nc{width:60%;margin: 5%;}
+        .wrap .who .nc .name{font-size: 14px;}
+        .wrap .who .nc .gonghao{color:#BFBFBF;font-size: 12px;}
+        .wrap .who .tx img{width:100%;border-radius: 50%;}
+        .wrap .who .fenshu img{width:8%;margin-top: 5%;}
+        .wrap .who .fenshu span{color:#FFAF11;font-size: 8px;}
+        .wrap .who .phone img{width:10%;margin-top:8%;}
+        .wrap .df{font-size: 10px;color:#919191;line-height:40px;text-align: center;}
+        .wrap #star{width:80%;margin:auto;display:flex;justify-content: space-around;align-items:center;padding-bottom: 5%}
+        .wrap #star img{width:80%;}
+        .wrap #star li:nth-child(6){width:40px;}
+        .wrap #star #res{font-size: 20px;padding:10px;}
+
+        #ypj{position: fixed;top:17%;right:-56%;display: none;}
+        #ypj img{width:22%;}
+        #tijiao{width:90%;background:#53B7DB;border-radius:8px;border:none;display:block;margin:10% auto;padding:10px;color:#fff;font-size:14px;}
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="qingjia">
+            <div class="who">
+                <div class="tx fl"><img src="{$add['maintain']['avatar']}" alt=""></div>
+                <div class="nc fl">
+                    <div>
+                        <span class="name">{$add['maintain']['name']}</span>
+                        <span class="gonghao">工号：{$add['maintain']['number']}</span>
+                    </div>
+                    <div class="fenshu">
+                        {if $eval['star'] == 5}
+                            <img src="/addons/iw_move/template/mobile/images/ystar.png" alt="">
+                            <img src="/addons/iw_move/template/mobile/images/ystar.png" alt="">
+                            <img src="/addons/iw_move/template/mobile/images/ystar.png" alt="">
+                            <img src="/addons/iw_move/template/mobile/images/ystar.png" alt="">
+                            <img src="/addons/iw_move/template/mobile/images/ystar.png" alt="">
+                            <span>5分</span>
+                        {elseif $eval['star'] == 4}
+
+                            <img src="/addons/iw_move/template/mobile/images/ystar.png" alt="">
+                            <img src="/addons/iw_move/template/mobile/images/ystar.png" alt="">
+                            <img src="/addons/iw_move/template/mobile/images/ystar.png" alt="">
+                            <img src="/addons/iw_move/template/mobile/images/ystar.png" alt="">
+                            <span>4分</span>
+                        {elseif $eval['star'] == 3}
+
+                            <img src="/addons/iw_move/template/mobile/images/ystar.png" alt="">
+                            <img src="/addons/iw_move/template/mobile/images/ystar.png" alt="">
+                            <img src="/addons/iw_move/template/mobile/images/ystar.png" alt="">
+                            <span>3分</span>
+                        {elseif $eval['star'] == 2}
+
+                            <img src="/addons/iw_move/template/mobile/images/ystar.png" alt="">
+                            <img src="/addons/iw_move/template/mobile/images/ystar.png" alt="">
+                            <span>2分</span>
+                        {elseif $eval['star'] == 1}
+
+                            <img src="/addons/iw_move/template/mobile/images/ystar.png" alt="">
+                            <span>1分</span>
+                        {/if}
+                    </div>
+
+                </div>
+                <div class="phone">
+                    <img src="/addons/iw_move/template/mobile/images/phone3.png" alt="">
+                </div>
+            </div>
+         <form action="{php echo $this->createMobileUrl('appraise',array('op'=>'estimate'))}" method="post">
+          <input type="hidden" name="id" value="{$add['id']}">
+               <input type="hidden" name="star" value="" id="ss">
+            <div class="df">给我的服务打个分吧</div>
+            <ul id="star">
+                <li><img src="/addons/iw_move/template/mobile/images/wstar.png" alt=""></li>
+                <li><img src="/addons/iw_move/template/mobile/images/wstar.png" alt=""></li>
+                <li><img src="/addons/iw_move/template/mobile/images/wstar.png" alt=""></li>
+                <li><img src="/addons/iw_move/template/mobile/images/wstar.png" alt=""></li>
+                <li><img src="/addons/iw_move/template/mobile/images/wstar.png" alt=""></li>
+                <li> <span id="res"></span></li>
+                <li> <span style="font-size: 20px;">分</span></li>
+            </ul>
+           
+        </div>
+        <button id="tijiao">提&nbsp;交&nbsp;评&nbsp;价</button>
+        <div id="ypj"><img src="/addons/iw_move/template/mobile/images/ypj.png" alt=""></div>
+        </form>
+    </div>
+    <script>
+
+
+        // 打分
+        var ulObj = document.getElementById('star');
+        var imgs   = ulObj.getElementsByTagName('img');
+        var Res =document.getElementById('res');
+        var Ss =document.getElementById('ss');
+        var  bj = false;  // 没有评分
+        for(var i=0;i<imgs.length;i++){
+            // 给每一个li 添加一个标记
+            imgs[i].index = i;
+            // 给每个li 绑定鼠标移入的事件
+            imgs[i].onmouseover = function(){
+                // console.log('ok')
+                // if(!bj){
+                    // 循环所有的 li
+                    for(var j=0;j<imgs.length;j++){
+                        // 我们要把，小于当前索引的li  和当前的li 点亮
+                        if(j<=this.index){
+                            imgs[j].src = '/addons/iw_move/template/mobile/images/ystar.png';
+                        }else{
+                            imgs[j].src = '/addons/iw_move/template/mobile/images/wstar.png';
+
+                        }
+                    }               
+                // }
+
+            }
+
+            // 给每个li 绑定鼠标 点击的事件
+            imgs[i].onclick = function(){
+                // if(!bj){
+                    bj = true;
+                    Res.innerHTML = this.index+1;
+                    Ss.value =  parseInt(this.index+1);
+                // }
+            }
+
+        }
+
+     
+
+        // 提交评价按钮  和 已评价图片
+        var Tijiao=document.getElementById('tijiao');
+        var Ypj=document.getElementById('ypj');
+        Tijiao.onclick=function(){
+           
+            // tijiao.style.display="none";
+            // Ypj.style.display="block";
+            for(var i=0;i<imgs.length;i++){
+                imgs[i].onmouseover =null;
+                imgs[i].onclick =null;
+            }
+
+        }
+
+        
+
+    </script>
+</body>
+</html>

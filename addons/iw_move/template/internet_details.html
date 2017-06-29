@@ -1,0 +1,78 @@
+{template 'common/header'}
+<style type="text/css">
+  .col-sm-9{
+    padding-top:7px;
+  }
+</style>
+<ul class="nav nav-tabs">
+     <li {if $operation == 'list'} class="active" {/if}><a href="{php echo  $this->createWebUrl('internet', array('op'=>'list'));}">互联网家信息列表</a></li>
+        {if $admin['move'] == 1}
+       <li {if $operation == 'add'} class="active" {/if}><a href="{php echo  $this->createWebUrl('internet', array('op'=>'add'));}">互联网家信息添加</a></li>
+       {/if}
+         <li {if $operation == 'details'} class="active" {/if}><a>互联网家信息详情</a></li>
+        
+</ul>
+<div class="clearfix"> 
+    <form id="theform" class="form form-horizontal" method="post">
+  
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                互联网家信息详情
+            </div>
+            {template 'common/load'}
+            <div class="panel-body">
+                
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">互联网家信息名称</label>
+                    <div class="col-sm-9 col-xs-12">
+                      {$internet_details['name']}  
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">互联网家信息主题</label>
+                    <div class="col-sm-9 col-xs-12">
+                      {$internet_details['theme']}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">互联网家信息介绍</label>
+                    <div class="col-sm-9 col-xs-12">
+                      {$internet_details['introduce']}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">互联网家信息详情</label>
+                    <div class="col-sm-9 col-xs-12">
+                      {$internet_details['content']}
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">展示图</label>
+                    <div class="col-sm-9 col-xs-12">
+                     <img width="40%" src="/attachment/{$internet_details['photo']}">
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">状态</label>
+                    <div class="col-sm-9 col-xs-12">
+                    
+                           {if $internet_details['status'] == 0}
+                                <span class="label label-success">已启用 </span> 
+                            {elseif $internet_details['status'] == 1}
+                                <span class="label label-warning" >已停用 </span>
+                            
+                            {/if}
+                    </div>
+                 </div>
+                 <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">添加时间</label>
+                    <div class="col-sm-9 col-xs-12">
+                      {$internet_details['time']}
+                    </div>
+                 </div>
+        
+            </div>
+      
+        </div>
+    </form>
+</div>

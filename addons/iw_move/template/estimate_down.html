@@ -1,0 +1,71 @@
+{template 'common/header'}
+<style type="text/css">
+    .a{
+        border-radius: 8px;
+        border:2px solid #428BCA;
+    }
+    
+</style>
+<ul class="nav nav-tabs">
+     <li {if $operation == 'list'} class="active" {/if}><a href="{php echo  $this->createWebUrl('estimate', array('op'=>'list'));}">已评价订单列表</a></li>
+       <li {if $operation == 'dispose'} class="active" {/if}><a href="{php echo  $this->createWebUrl('estimate', array('op'=>'dispose'));}">未评价订单列表</a></li>
+     <li {if $operation == 'down'} class="active" {/if}><a href="{php echo  $this->createWebUrl('estimate', array('op'=>'down'));}">订单信息数据导出</a></li>
+      <li {if $operation == 'time'} class="active" {/if}><a href="{php echo  $this->createWebUrl('estimate', array('op'=>'time'));}">按时间删除订单信息数据</a></li>
+     
+       
+</ul>
+<div class="clearfix"> 
+{template 'common/load'}
+    <form id="theform" class="form form-horizontal" action="{php echo  $this->createWebUrl('load', array('op'=>'down'));}" method="post">
+	
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                订单信息数据导出
+            </div>
+            <div class="alert alert-info">
+        <h4>
+            <i class="fa fa-info-circle"></i>
+            说明: 数据导出时如果不选择时间范围，则会默认导出所有数据。<br>
+        </h4>
+       
+    </div>
+            <div class="panel-body">
+                
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">导出数据时间区间</label>
+                    <div class="col-sm-9 col-xs-12" style="position: relative;top: 6px;">
+                      {php echo tpl_form_field_daterange('datelimit', array('start'=>date('Y-m-d H:i',time()),'end'=>date('Y-m-d H:i',time())), true)}
+                    </div>
+                </div>
+               <div class="form-group" >
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">导出数据类型</label>
+                    <div class="col-sm-9 col-xs-12"  style="position: relative;top: 6px;font-size: 20px;">
+                        <input type="radio" name="appraise" value="0">未评价订单
+                        <input type="radio" name="appraise" value="1" checked>已评价订单
+                        <span style="color: red;font-size: 20px;">请选择好要导出的数据类型</span>
+                    </div>
+                </div>
+                 <div class="form-group" >
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">导出数据选择</label>
+                    <div class="col-sm-9 col-xs-12"  style="position: relative;top: 6px;font-size: 20px;">
+                        <input type="radio" name="all" value="2" checked>全部导出
+                        <input type="radio" name="all" value="1">按时间区间导出
+                        <span style="color: red;font-size: 20px;">请选择好是否按照时间区间导出数据</span>
+                    </div>
+                </div>
+                
+              
+               
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                    <div class="col-md-2 col-lg-1">
+                        <input name="submit" type="submit" value="导出数据" class="btn btn-primary btn-block">
+                        <input type="hidden" name="token" value="85616f84">
+                    </div>
+                </div>
+				
+            </div>
+			
+        </div>
+    </form>
+</div>

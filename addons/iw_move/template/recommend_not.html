@@ -1,0 +1,141 @@
+{template 'common/header'}
+<style type="text/css">
+  .bt{
+    background:#33485D;
+    color: white;
+    font-size: 15px;
+    margin-bottom: 5px;
+  }
+</style>
+<ul class="nav nav-tabs">
+      <li {if $operation == 'list'} class="active" {/if}><a href="{php echo  $this->createWebUrl('recommend', array('op'=>'list'));}">推荐业务信息列表</a></li>
+      <!-- {if $admin['move'] == 1 } -->
+       <li {if $operation == 'add'} class="active" {/if}><a href="{php echo  $this->createWebUrl('recommend', array('op'=>'add'));}">推荐业务信息添加</a></li>
+       <!-- {/if} -->
+        <li {if $operation == 'has'} class="active" {/if}><a href="{php echo  $this->createWebUrl('recommend', array('op'=>'has'));}">已分配推荐业务信息</a></li>
+         <li {if $operation == 'not'} class="active" {/if}><a href="{php echo  $this->createWebUrl('recommend', array('op'=>'not'));}">未分配推荐业务信息</a></li>
+          <li {if $operation == 'down'} class="active" {/if}><a href="{php echo  $this->createWebUrl('recommend', array('op'=>'down'));}">业务信息数据导出</a></li>
+         <li {if $operation == 'time'} class="active" {/if}><a href="{php echo  $this->createWebUrl('recommend', array('op'=>'time'));}">按时间删除业务信息数据</a></li>
+</ul>
+<div class="main">
+{template 'common/load'}
+ <div class="alert alert-info">
+       
+        <h4>
+            <i class="fa fa-info-circle"></i>
+            说明: 此处的添加分配是把客户推荐的业务生成订单，并分配给维修人员。<br>
+        </h4>
+        <!-- <p style="color: red">&nbsp;&nbsp;&nbsp;&nbsp;商户结算数据涉及钱款操作，请认真审核，谨慎操作！</p> -->
+    </div>
+  <div class="panel panel-info">
+      <div class="panel-heading">筛选</div>
+      <div class="panel-body">
+        <form action="{php echo  $this->createWebUrl('recommend', array('op'=>'not'));}" method="post" class="form-horizontal" role="form">
+         <!--  <input type="hidden" name="c" value="site" />
+          <input type="hidden" name="a" value="entry" />
+          <input type="hidden" name="m" value="wo_telecom" />
+          <input type="hidden" name="do" value="recommend" />
+          <input type="hidden" name="op" value="list" /> -->
+          <div class="form-group">
+            <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">关键字</label>
+            <div class="col-sm-8 col-lg-9">
+              <input class="form-control" name="keyword" placeholder="用户姓名/电话/地址" type="text" value="">
+            </div>
+            <div class=" col-xs-12 col-sm-2 col-lg-2">
+              <button class="btn btn-derecommend"><i class="fa fa-search"></i> 搜索</button>
+            </div>
+          </div>
+          <div class="form-group">
+          </div>
+        </form>
+      </div>
+  
+    </div>
+     <form action="{php echo  $this->createWebUrl('recommend', array('op'=>'recommend_delete'));}" method="post" class="form-horizontal form">
+    <button class="bt">删除所选中的信息</button>
+        <div class="panel panel-derecommend">
+            <div class="table-responsive panel-body">
+                <table class="table table-hover">
+                    <thead class="navbar-inner">
+                    <tr>
+                     <th style="width: 4%"><div><input type="checkbox" name="xaun" onclick="selectAll()">全选</div></th>
+                        <th style="width:8%;">ID</th>
+                        <th style="width:8%;">用户姓名</th>                    
+                        <th style="width:8%;">电话</th>                    
+                        <th style="width:10%;">用户地址</th>                    
+                        <th style="width:18%;">推荐业务描述</th>                    
+                        <th style="width:8%;">业务来源</th>                    
+                        <th style="width:8%;">状态</th>                    
+                     
+                        <th style="width:10%;">添加时间</th>
+                       <!-- {if $admin['move'] == 1 } -->
+                        <th style="width:7%;">添加分配</th>
+                       <!-- {/if} -->
+                        <th style="width:12%;">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {loop $recommend_not $item}
+                    <tr>
+                     <td><input type="checkbox" name="ipn-id[]" value="{$item['id']}"></td>
+                        <td>{$item['id']}</td>
+                        <td>{$item['name']}</td>
+                        <td>{$item['phone']}</td>
+                        <td>{$item['address']}</td>
+                       
+                      
+                   
+                        <td>{$item['content']}</td>
+                        <td>
+                          {if $item['come'] == 0}
+                                <span style="color: green;">员工推荐 </span> 
+                            {elseif $item['come'] == 1}
+                                <span style="color: #428BCA;">客户推荐 </span>
+                             {elseif $item['come'] == 2}
+                                <span style="color: #D9534F;">客服后台添加 </span>
+                            {/if}
+                        </td>
+                        <td>
+                          {if $item['status'] == 1}
+                                <span style="color: green;">已分配 </span> 
+                            {elseif $item['status'] == 0}
+                                <span style="color:red;">待分配 </span>
+                            
+                            {/if}
+                        </td>
+                        <td>{php echo date("Y-m-d H:i:s",$item['time'])}</td>
+                         <!-- {if $admin['move'] == 1 } -->
+                        <td><a class="btn btn-info btn-sm" href="{php echo  $this->createWebUrl('recommend', array('op'=>'fault','id'=>$item['id']));}" title="分配信息">分配信息</a></td>
+                       <!-- {/if} -->
+                        <td style="text-align:left;">
+	                        <a class="btn btn-info btn-sm" href="{php echo  $this->createWebUrl('recommend', array('op'=>'details','id'=>$item['id']));}" title="详情">详情</a>
+                         <!-- {if $admin['move'] == 1 } -->
+	                        <a class="btn btn-info btn-sm" href="{php echo  $this->createWebUrl('recommend', array('op'=>'edit','id'=>$item['id']));}" title="编辑">编辑</a>
+                           
+	                        <a class="btn btn-danger btn-sm" href="{php echo  $this->createWebUrl('recommend', array('op'=>'delete','id'=>$item['id']));}" title="删除网点" onclick="return confirm('此操作不可恢复，确认删除？');return false;"><i class="fa fa-times"></i></a>
+                        <!-- {/if} -->
+                      </td>                    
+                    </tr>
+                    {/loop}
+                    </tbody>
+                </table>
+                {$pager1}
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+      function selectAll(){
+        var a = document.getElementsByName("ipn-id[]");
+         if(a[0].checked){
+            for(var i=0 ;i<a.length;i++){
+                if(a[i].type=='checkbox')a[i].checked=false;   
+            }
+         }
+         else{
+          for(var i = 0;i<a.length;i++){
+          if(a[i].type == "checkbox") a[i].checked = true;
+          }
+         }
+      }
+</script>

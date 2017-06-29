@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta name="renderer" content="webkit|ie-comp|ie-stand">
+        <meta name="viewport" content="user-scalable=no,width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8">
+        <title>宽带信息介绍</title>
+        <link rel="stylesheet" type="text/css" href="/addons/iw_move/template/mobile/css/reset200802.css"/>
+        <style>
+            .words-title{margin-top:20px;font-size: 18px;text-align: center;}
+            .words-title img{width:20px;}
+            .words-title span{padding:0px 10px;}
+            .words-img li{width:90%;margin: auto;}
+            .words-img li img{width:100%;margin-top:20px;}
+            .span-img img{
+                width: 8%;
+                height: 8%;
+                margin:-7px -10px;
+            }
+             .qingjia{width:100%;background:#51B8D9;/*border-radius:8px;*/border:none;display:block;margin:2% auto;padding:10px;color:#fff;}
+        </style>
+    </head>
+    <body>
+        <div class="words-title">
+         <span class="span-img"><img src="/addons/iw_move/template/mobile/images/5.png">
+                  </span><span>{$broad['name']}</span>  
+         
+        </div>
+        <ul class="words-img">
+            <li>{$broad['content']}</li>
+            <li> <a href="{php echo $this->createMobileUrl('broad',array('op'=>'add','manage'=>1))}">
+                <li>
+                
+                    <button class="qingjia">立即办理</button>
+                  
+                </li>
+              </a></li>
+        </ul>
+    </body>
+</html>

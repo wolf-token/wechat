@@ -1,0 +1,168 @@
+{template 'common/header'}
+<style type="text/css">
+  .col-sm-9{
+    padding-top:7px;
+  }
+</style>
+
+<ul class="nav nav-tabs">
+      <li {if $operation == 'list'} class="active" {/if}><a href="{php echo  $this->createWebUrl('staff', array('op'=>'list'));}">员工信息列表</a></li>
+      {if $admin['move'] == 1}
+       <li {if $operation == 'add'} class="active" {/if}><a href="{php echo  $this->createWebUrl('staff', array('op'=>'add'));}">员工信息添加</a></li>
+       <li {if $operation == 'file'} class="active" {/if}><a href="{php echo  $this->createWebUrl('staff', array('op'=>'file'));}">员工信息导入</a></li>
+       {/if}
+        <li class="active"><a>员工信息详情</a></li>
+        {if $admin['move'] == 1}
+        <li {if $operation == 'control'} class="active" {/if}><a href="{php echo  $this->createWebUrl('staff', array('op'=>'control'));}">员工信息修改控制</a></li>
+        <li {if $operation == 'down'} class="active" {/if}><a href="{php echo  $this->createWebUrl('staff', array('op'=>'down'));}">员工数据导出</a></li>
+         <li {if $operation == 'time'} class="active" {/if}><a href="{php echo  $this->createWebUrl('staff', array('op'=>'time'));}">按时间删除员工信息</a></li>
+        {/if}
+</ul>
+<div class="clearfix"> 
+    <form id="theform" class="form form-horizontal" method="post">
+  
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                员工信息详情
+            </div>
+            {template 'common/load'}
+            <div class="panel-body">
+                
+                 <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">微信头像</label>
+                    <div class="col-sm-9 col-xs-12">
+                     <img src="{$staff_details['avatar']}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">微信昵称</label>
+                    <div class="col-sm-9 col-xs-12">
+                    {$staff_details['nickname']}
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">员工姓名</label>
+                    <div class="col-sm-9 col-xs-12">
+                       {$staff_details['name']}
+                    </div>
+                </div>
+               
+                 <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">员工班组ID</label>
+                    <div class="col-sm-9 col-xs-12">
+                       {$staff_details['tid']}
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">员工电话</label>
+                    <div class="col-sm-9 col-xs-12">
+                       {$staff_details['phone']}
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">员工推广人数</label>
+                    <div class="col-sm-9 col-xs-12">
+                       {$staff_details['math']}
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">员工被分配维修数量</label>
+                    <div class="col-sm-9 col-xs-12">
+                       {$staff_details['service']}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">员工所属班组名称</label>
+                    <div class="col-sm-9 col-xs-12">
+                       {$staff_details['team']}
+                    </div>
+                </div>
+               <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">添加时间</label>
+                    <div class="col-sm-9 col-xs-12">
+                     {php echo date("Y-m-d H:i:s",$staff_details['time'])}
+                    </div>
+                </div>
+                
+        
+            </div>
+      
+        </div>
+    </form>
+</div>
+
+ <div class="alert alert-info">
+        <h4 style="color:green">
+            <i class="fa fa-info-circle"></i>
+           此员工推广客户列表<br>
+        </h4>
+    </div>
+     <form action="" method="post" class="form-horizontal form">
+        <div class="panel panel-default">
+            <div class="table-responsive panel-body">
+                <table class="table table-hover">
+                    <thead class="navbar-inner">
+                    <tr>
+                        <th style="width:15%;">客户头像</th>
+                        <th style="width:15%;">客户姓名</th>
+                        <th style="width:15%;">客户电话</th>          
+                        <th style="width:15%;">客户地址</th>          
+                        <th style="width:15%;">客户推广人数</th>          
+                        <th style="width:15%;">添加时间</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {loop $station_staff $item}
+                    <tr>
+                        <td><img width="20%" src="{$item['avatar']}"></td>
+                        <td>{$item['name']}</td>
+                        <td>{$item['phone']}</td>
+                        <td>{$item['address']}</td>
+                        <td>{$item['math']}</td>
+                        <td>{$item['time']}</td>
+                    </tr>
+                    {/loop}
+                    </tbody>
+                </table>
+                {$pager2}
+            </div>
+        </div>
+    </form>
+    <div class="alert alert-info">
+        <h4 style="color:green">
+            <i class="fa fa-info-circle"></i>
+           此员工负责小区信息<br>
+        </h4>
+    </div>
+     <form action="" method="post" class="form-horizontal form">
+        <div class="panel panel-default">
+            <div class="table-responsive panel-body">
+                <table class="table table-hover">
+                    <thead class="navbar-inner">
+                    <tr>
+                        <th style="width:15%;">小区名称</th>
+                        <th style="width:15%;">班组名称</th>
+                        <th style="width:15%;">地址</th>          
+                        <th style="width:15%;">班组ID</th>          
+                            
+                        <th style="width:15%;">添加时间</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {loop $plot $it}
+                    <tr>
+                       
+                        <td>{$it['name']}</td>
+                        <td>{$it['nickname']}</td>
+                        <td>{$it['address']}</td>
+                        <td>{$it['pid']}</td>
+                        <td>{$it['time']}</td>
+                    </tr>
+                    {/loop}
+                    </tbody>
+                </table>
+                {$pager3}
+            </div>
+        </div>
+    </form>

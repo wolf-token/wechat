@@ -1,0 +1,263 @@
+{template 'common/header'}
+<style type="text/css">
+  .col-sm-9{
+    padding-top:7px;
+  }
+  li,p,ul { 
+    margin: 0;
+    padding: 0;
+    font: 12px/1 Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
+}
+ul, li, ol { list-style: none; }
+/* 重置文本格式元素 */
+a { text-decoration: none; cursor: pointer; color:#333333; font-size:14px;}
+a:hover { text-decoration: none; }
+.clearfix::after{ display:block; content:''; height:0; overflow:hidden; clear:both;} 
+/*星星样式*/
+.content{ width:600px; margin:0 auto; padding-top:20px;}
+.title{ font-size:14px; background:#dfdfdf; padding:10px; margin-bottom:10px;}
+.block{ width:100%; margin:0 0 20px 0; padding-top:10px; padding-left:50px; line-height:21px;}
+.block .star_score{ float:left;}
+.star_list{height:21px;margin:50px; line-height:21px;}
+.block p,.block .attitude{ padding-left:20px; line-height:21px; display:inline-block;}
+.block p span{ color:#C00; font-size:16px; font-family:Georgia, "Times New Roman", Times, serif;}
+.star_score { background:url(/addons/iw_move/template/mobile/images/stark2.png); width:160px; height:21px;  position:relative; }
+.star_score a{ height:21px; display:block; text-indent:-999em; position:absolute;left:0;}
+.star_score a:hover{ background:url(/addons/iw_move/template/mobile/images/stars2.png);left:0;}
+.star_score a.clibg{ background:url(/addons/iw_move/template/mobile/images/stars2.png);left:0;}
+#starttwo .star_score { background:url(/addons/iw_move/template/mobile/images/starky.png);}
+#starttwo .star_score a:hover{ background:url(/addons/iw_move/template/mobile/images/starsy.png);left:0;}
+#starttwo .star_score a.clibg{ background:url(/addons/iw_move/template/mobile/images/starsy.png);left:0;}
+/*星星样式*/
+/*.show_number{ padding-left:50px; padding-top:20px;}*/
+/*.show_number li{ width:240px; padding:10px; margin-right:5px; margin-bottom:20px;}*/
+.atar_Show{background:url(/addons/iw_move/template/mobile/images/stark2.png); width:160px; height:21px;  position:relative; float:left; }
+.atar_Show p{ background:url(/addons/iw_move/template/mobile/images/stars2.png);left:0; height:21px; width:134px;}
+.show_number li span{ display:inline-block;}
+</style>
+<ul class="nav nav-tabs">
+      <li {if $operation == 'list'} class="active" {/if}><a href="{php echo  $this->createWebUrl('fault', array('op'=>'list'));}">报装故障信息列表</a></li>
+      <!-- {if $part['move'] == 1 } -->
+       <li {if $operation == 'add'} class="active" {/if}><a href="{php echo  $this->createWebUrl('fault', array('op'=>'add'));}">报装故障信息添加</a></li>
+      <!-- {/if} -->
+        <li {if $operation == 'details'} class="active" {/if}><a>报装故障信息详情</a></li>
+           <li {if $operation == 'down'} class="active" {/if}><a href="{php echo  $this->createWebUrl('fault', array('op'=>'down'));}">报装故障信息数据导出</a></li>
+       <li {if $operation == 'time'} class="active" {/if}><a href="{php echo  $this->createWebUrl('fault', array('op'=>'time'));}">按时间删除报装故障信息数据</a></li>
+      
+</ul>
+<div class="clearfix"> 
+    <form id="theform" class="form form-horizontal" method="post">
+  
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                报装故障信息详情
+            </div>
+            {template 'common/load'}
+            <div class="panel-body">
+                
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">申报人姓名</label>
+                    <div class="col-sm-9 col-xs-12">
+                        {$fault_details['name']}
+                    </div>
+                </div>
+              
+                 <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">申报人电话</label>
+                    <div class="col-sm-9 col-xs-12">
+                      {$fault_details['phone']}
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">申报人所在小区</label>
+                    <div class="col-sm-9 col-xs-12">
+                       {$fault_details['plat']}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">订单来源</label>
+                    <div class="col-sm-9 col-xs-12">
+                          {if $fault_details['come'] == 0}
+                                <span style="color: green;">员工推荐 </span> 
+                            {elseif $fault_details['come'] == 1}
+                                <span style="color: #428BCA;">客户推荐 </span>
+                             {elseif $fault_details['come'] == 2}
+                                <span style="color: #D9534F;">客服后台添加 </span>
+                            {/if}
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">订单状态</label>
+                    <div class="col-sm-9 col-xs-12">
+                        {if $fault_details['status'] == 4}
+                                <span class="label label-success">已分配 </span> 
+                            {elseif $fault_details['status'] == 1}
+                                <span class="label label-warning" >处理中 </span>
+                             {elseif $fault_details['status'] == 2}
+                                <span class="label label-warning" >分配失败 </span>
+                               {elseif $fault_details['status'] == 3}
+                                <span class="label label-warning" >订单完成 </span>
+                                {elseif $fault_details['status'] == 0}
+                                <span class="label label-warning" >订单未做任何处理 </span>
+                                {elseif $fault_details['status'] == 5}
+                                 <span class="label label-warning" style="background: red;" >维修工拒绝接单 </span>
+                            {/if}
+                    </div>
+                </div>
+               <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">申报类型</label>
+                    <div class="col-sm-9 col-xs-12">
+                         {if $fault_details['type'] == 1}
+                                <span class="label label-success">报修 </span> 
+                            {elseif $fault_details['type'] == 0}
+                                <span class="label label-warning" >报装 </span>
+                            
+                            {/if}
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">报装故障详情</label>
+                    <div class="col-sm-9 col-xs-12">
+                      {$fault_details['details']}
+                    </div>
+                </div>
+                {if $fault_details['status'] == 5}
+                  <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">维修拒绝接单原因</label>
+                    <div class="col-sm-9 col-xs-12">
+                      {$fault_details['refuse']}
+                    </div>
+                </div>
+                {/if}
+      {if $fault_details['appraise'] == 1}
+                  <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-2 control-label">评价星级</label>
+                        <div class="col-sm-9 col-xs-12">
+                           <ul class="show_number clearfix">
+
+						       <li>
+						        <div class="atar_Show">
+						          <p tip="{$fault_details['star']}"></p>
+						        </div>
+						        <span></span>
+						       </li>
+						    </ul>
+                        </div>
+                    </div>
+                    
+                {/if}
+
+                {if $fault_details['status'] != 0 && $fault_details['status'] != 2}
+                  {if $fault_details['appraise'] == 3}
+
+                       <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                        <div class="col-sm-9 col-xs-12">
+                           <span style="color: red;font-size: 20px;">此维修工信息已删除</span>
+                        </div>
+                    </div>
+
+                  {else}
+                  <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-2 control-label">分配维修工头像</label>
+                        <div class="col-sm-9 col-xs-12">
+                           <img width="10%" src="{$staff['avatar']}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-2 control-label">分配维修工姓名</label>
+                        <div class="col-sm-9 col-xs-12">
+                           {$staff['name']}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-2 control-label">分配维修工电话</label>
+                        <div class="col-sm-9 col-xs-12">
+                           {$staff['phone']}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-2 control-label">分配维修工班组ID</label>
+                        <div class="col-sm-9 col-xs-12">
+                           {$staff['tid']}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-2 control-label">分配维班组名称</label>
+                        <div class="col-sm-9 col-xs-12">
+                           {$staff['team']}
+                        </div>
+                    </div>
+                  {/if}
+                {/if}
+
+                {if $fault_details['come'] != 2}
+
+                      {if $fault_details['uid'] == 0}
+                     <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-2 control-label">推荐人微信头像</label>
+                        <div class="col-sm-9 col-xs-12">
+
+                           <img width="10%" src="{$fault_details['avatar']}">
+                        </div>
+                    </div>
+                     <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-2 control-label">推荐人微信昵称</label>
+                        <div class="col-sm-9 col-xs-12">
+                           {$fault_details['nickname']}
+                        </div>
+                    </div>
+                  {/if}
+                  {if $fault_details['uid'] != 0}
+                     <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-2 control-label">推荐人微信头像</label>
+                        <div class="col-sm-9 col-xs-12">
+
+                           <img width="10%" src="{$recommend['avatar']}">
+                        </div>
+                    
+                    </div>
+                     <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-2 control-label">推荐人微信昵称</label>
+                        <div class="col-sm-9 col-xs-12">
+                           {$recommend['nickname']}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-2 control-label">推荐人姓名</label>
+                        <div class="col-sm-9 col-xs-12">
+                           {$recommend['name']}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-2 control-label">推荐人电话</label>
+                        <div class="col-sm-9 col-xs-12">
+                           {$recommend['phone']}
+                        </div>
+                    </div>
+                    {/if}
+                {/if}
+                 <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">添加时间</label>
+                    <div class="col-sm-9 col-xs-12">
+                     {php echo date("Y-m-d H:i:s",$fault_details['time'])}
+                    </div>
+                 </div>
+        
+            </div>
+      
+        </div>
+    </form>
+</div>
+ <script>
+		    //显示分数
+		      $(".show_number li p").each(function(index, element) {
+		        var num=$(this).attr("tip");
+		        var www=num*2*16;//
+		        $(this).css("width",www);
+		        $(this).parent(".atar_Show").siblings("span").text(num+"分");
+		    });
+
+		    </script>

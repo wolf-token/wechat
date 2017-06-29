@@ -1,0 +1,122 @@
+{template 'common/header'}
+<style type="text/css">
+  .col-sm-9{
+    padding-top:7px;
+  }
+</style>
+<ul class="nav nav-tabs">
+      <li {if $operation == 'list'} class="active" {/if}><a href="{php echo  $this->createWebUrl('user', array('op'=>'list'));}">用户信息列表</a></li>
+        {if $admin['move'] == 1}
+       <li {if $operation == 'add'} class="active" {/if}><a href="{php echo  $this->createWebUrl('user', array('op'=>'add'));}">用户信息添加</a></li>
+       <li {if $operation == 'file'} class="active" {/if}><a href="{php echo  $this->createWebUrl('user', array('op'=>'file'));}">用户信息导入</a></li>
+        
+        <li {if $operation == 'down'} class="active" {/if}><a href="{php echo  $this->createWebUrl('user', array('op'=>'down'));}">用户数据导出</a></li>
+        <li {if $operation == 'time'} class="active" {/if}><a href="{php echo  $this->createWebUrl('user', array('op'=>'time'));}">按时间删除用户信息</a></li>
+        {/if}
+        <li {if $operation == 'details'} class="active" {/if}><a>用户信息详情</a></li>
+</ul>
+<div class="clearfix"> 
+{template 'common/load'}
+    <form id="theform" class="form form-horizontal" method="post">
+  
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                用户信息详情
+            </div>
+            <div class="panel-body">
+                
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">微信昵称</label>
+                    <div class="col-sm-9 col-xs-12">
+                        {$user_details['nickname']}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">微信头像</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <img width="10%" src="{$user_details['avatar']}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">用户姓名</label>
+                    <div class="col-sm-9 col-xs-12">
+                        {$user_details['name']}
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">用户地址</label>
+                    <div class="col-sm-9 col-xs-12">
+                      {$user_details['address']}
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">用户所在小区</label>
+                    <div class="col-sm-9 col-xs-12">
+                      {$user_details['plot']}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">用户电话</label>
+                    <div class="col-sm-9 col-xs-12">
+                       {$user_details['phone']}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">用户宽带账号</label>
+                    <div class="col-sm-9 col-xs-12">
+                        {$user_details['account']}
+                    </div>
+                </div>
+               
+                 
+                 <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">添加时间</label>
+                    <div class="col-sm-9 col-xs-12">
+                      {php echo date("Y-m-d H:i:s",$user_details['time'])}
+                    </div>
+                 </div>
+        
+            </div>
+      
+        </div>
+    </form>
+</div>
+
+
+ <div class="alert alert-info">
+        <h4 style="color:green">
+            <i class="fa fa-info-circle"></i>
+           此客户推广客户列表<br>
+        </h4>
+    </div>
+     <form action="" method="post" class="form-horizontal form">
+        <div class="panel panel-default">
+            <div class="table-responsive panel-body">
+                <table class="table table-hover">
+                    <thead class="navbar-inner">
+                    <tr>
+                        <th style="width:15%;">客户头像</th>
+                        <th style="width:15%;">客户姓名</th>
+                        <th style="width:15%;">客户电话</th>          
+                        <th style="width:15%;">客户地址</th>          
+                        <th style="width:15%;">客户推广人数</th>          
+                        <th style="width:15%;">添加时间</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {loop $station_staff $item}
+                    <tr>
+                        <td><img width="20%" src="{$item['avatar']}"></td>
+                        <td>{$item['name']}</td>
+                        <td>{$item['phone']}</td>
+                        <td>{$item['address']}</td>
+                        <td>{$item['math']}</td>
+                        <td>{php echo date("Y-m-d H:i:s",$item['time'])}</td>
+                    </tr>
+                    {/loop}
+                    </tbody>
+                </table>
+                {$pager2}
+            </div>
+        </div>
+    </form>

@@ -1,0 +1,75 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+   <li {if $operation == 'list'} class="active" {/if}><a href="{php echo  $this->createWebUrl('recommend', array('op'=>'list'));}">推荐业务信息列表</a></li>
+    {if $admin['move'] == 1 }
+       <li {if $operation == 'add'} class="active" {/if}><a href="{php echo  $this->createWebUrl('recommend', array('op'=>'add'));}">推荐业务信息添加</a></li>
+      {/if}
+       <li class="active"><a>业务信息生成订单分配</a></li>
+</ul>
+<div class="clearfix"> 
+    <form id="theform" class="form form-horizontal" action="{php echo  $this->createWebUrl('recommend', array('op'=>'allot'));}" method="post">
+	
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                业务信息生成订单分配
+            </div>
+            {template 'common/load'}
+               <div class="alert alert-info">
+        <h4>
+            <i class="fa fa-info-circle"></i>
+            说明: 申报人的信息是根据客户提交的数据所生成，如果和实际有出入请手动修改。<br>
+        </h4>
+       
+    </div>
+            <div class="panel-body">
+                
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">申报人姓名</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="text" name="name" value="{$business['name']}" class="form-control">
+                    </div>
+                </div>
+               <input type="hidden" name="rid" value="{$business[id]}">
+                 <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">申报人电话</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="text" name="phone" value="{$business['phone']}" maxlength="11" class="form-control">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">申报人所在小区</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="text" name="plat" value="{$business['address']}" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">申报类型</label>
+                     <div class="col-sm-9 col-xs-12" style="position: relative;
+    top: 6px;">
+                     <input type="radio" name="type" value="1">
+                     报修
+                     <input type="radio" name="type" value="0">报装
+                     <span style="color: red">&nbsp;&nbsp;&nbsp;&nbsp;(此处请手动根据客户需求选择)</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">报装故障详情</label>
+                    <div class="col-sm-9 col-xs-12">
+                      <textarea placeholder="" rows="10" cols="20" style="margin: 0px; width: 826px; height: 280px;" name="details" required="">{$business['content']}</textarea>
+                    </div>
+                </div>
+               
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                    <div class="col-md-2 col-lg-1">
+                        <input name="submit" type="submit" value="添加" class="btn btn-primary btn-block">
+                        <input type="hidden" name="token" value="85616f84">
+                    </div>
+                </div>
+				
+            </div>
+			
+        </div>
+    </form>
+</div>

@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="viewport" content="user-scalable=no,width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/addons/iw_move/template/mobile/css/reset200802.css"/>
+    <title>完成订单信息确认</title>
+    <style>
+        body{background:#ECECEC;font-size:14px;}
+        .wrap ul{width:90%;margin: auto;margin-top:6%;}
+       /* .wrap ul li{display:flex; justify-content: space-around;align-items:center;background:#fff;padding:8px 10px;}
+        img{width:7%;height:7%;}
+        .wrap ul li input{border:none;color:#c2c2c2;}
+        .wrap ul li span{font-size:14px; margin:0  15px;}
+        .wrap .riqi{background:#51B8D9;color:#fff;display:flex; justify-content: space-between;align-items:center;padding:16px 5%;}*/
+         .wrap ul li{display:flex; justify-content:flex-start; align-items:center;background:#fff;padding:8px 30px;}
+        img{width:7%;height:7%;}
+        .wrap ul li input{border:none;color:#c2c2c2;}
+        .wrap ul li span{font-size:14px; margin:0  15px;}
+        .wrap ul:nth-child(1){margin-top:6%;}
+        .wrap .riqi{background:#51B8D9;color:#fff;display:flex; justify-content: flex-start;align-items:center;padding:16px 5%;}
+        .qingjia{width:65%;background:#51B8D9;border-radius:8px;border:none;display:block;margin:4% auto;padding:10px;color:#fff;}
+
+    </style>
+</head>
+<body>
+    <div class="wrap">
+    {loop $finish $item}
+        <ul>
+            <li class="riqi" style="border-radius:10px 10px 0px 0px;">
+                <span>{$item['name']}</span>
+                <span>{php echo date("Y-m-d H:d:s",$item['time'])}</span>
+            </li> 
+            <li style="padding-top: 25px;">
+                <img src="/addons/iw_move/template/mobile/images/xiaoqu.png" alt="">
+                <span>所在小区：</span>
+                <div class="a">{$item['plat']}</div>
+            </li>
+             
+            <li>
+                <img src="/addons/iw_move/template/mobile/images/phone.png" alt="">
+                <span>联系电话：</span>
+                 <div class="a">{$item['phone']}</div>
+            </li>
+             <li>
+               <img src="/addons/iw_move/template/mobile/images/weixiu.png" alt="">
+                <span>维修类型：</span>
+                 <div class="a">{if $item['type'] == 0 } 宽带 {elseif $item['type'] == 1} 报修 {/if}</div>
+            </li>
+             <li>
+                <img src="/addons/iw_move/template/mobile/images/wenti.png" alt="">
+                <span>具体详情：</span>
+                 <div class="a">{$item['details']}</div>
+            </li>
+            <a href="{php echo $this->createMobileUrl('finish',array('op'=>'add','id'=>$item['id']))}">
+            <li style="border-radius:0px 0px 10px 10px;">
+            
+                <button class="qingjia">确认完成此订单服务</button>
+              
+            </li>
+              </a>
+        </ul>
+       
+    {/loop}
+    </div>
+</body>
+</html>
